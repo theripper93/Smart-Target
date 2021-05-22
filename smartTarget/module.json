@@ -19,7 +19,7 @@
   "compatibleCoreVersion": "0.8.5",
   "url": "https://github.com/theripper93/Smart-Target",
   "manifest": "https://raw.githubusercontent.com/theripper93/Smart-Target/main/smartTarget/module.json",
-  "download": "https://github.com/theripper93/Better-Roofs/raw/main/smartTarget.zip",
+  "download": "https://github.com/theripper93/Smart-Target/raw/main/smartTarget.zip",
   "dependencies": [
     {
         "name": "lib-wrapper"
