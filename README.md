@@ -6,8 +6,9 @@
 3. Customize color\shape of the targeting reticule
 
 ![alt text](./wiki/smartTarget.jpg)
-<img src="./wiki/smartTarget.jpg" width="100" height="100">
+<img src="./wiki/smartTarget.jpg" width="300" height="300">
 ![alt text](./wiki/targetoptions.jpg)
+<img src="./wiki/targetoptions.jpg" width="300">
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
