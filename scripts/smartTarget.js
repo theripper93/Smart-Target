@@ -65,7 +65,7 @@ function _refreshTarget() {
           );
       let newTexW = scaleMulti * (2 * circleR);
       let newTexH = scaleMulti * (2 * circleR);
-      let borderThic = game.settings.get("smarttarget", "borderThicc") || 2;
+      let borderThic = game.settings.get("smarttarget", "borderThicc");
       let portraitCenterOffset =
         scaleMulti >= 1 ? (16 + circleR / 12) * Math.log2(scaleMulti) : 0;
       portraitCenterOffset +=

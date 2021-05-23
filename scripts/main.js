@@ -103,7 +103,7 @@ Hooks.on("init", () => {
     config: true,
     type: Number,
     range: {
-      min: 2,
+      min: 0,
       max: 10,
       step: 1,
     },
