@@ -5,9 +5,7 @@
 2. Show portraits instead of colored pips to indicate targets, positioning\offset and size of the icons can be configured in the module settings
 3. Customize color\shape of the targeting reticule
 
-![alt text](./wiki/smartTarget.jpg)
 <img src="./wiki/smartTarget.jpg" width="300" height="300">
-![alt text](./wiki/targetoptions.jpg)
 <img src="./wiki/targetoptions.jpg" width="300">
 ## Installation
 
