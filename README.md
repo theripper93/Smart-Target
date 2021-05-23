@@ -6,6 +6,7 @@
 3. Customize color\shape of the targeting reticule
 
 ![alt text](./wiki/smartTarget.jpg)
+<img src="./wiki/smartTarget.jpg" width="100" height="100">
 ![alt text](./wiki/targetoptions.jpg)
 ## Installation
 
