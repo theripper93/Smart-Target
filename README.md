@@ -1,5 +1,3 @@
-![](https://img.shields.io/badge/Foundry-v0.8.5-informational)
-
 # Smart-Target
 
 A module to target with Alt+Click and show portraits instead of colored pips to indicate targets, positioning\offset and size of the icons can be configured in the module settings
