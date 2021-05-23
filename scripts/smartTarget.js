@@ -12,7 +12,7 @@ function _refreshTarget() {
   if (userTarget) {
     let textColor = game.settings.get("smarttarget", "crossairColor") ? game.settings.get("smarttarget", "crossairColor").replace("#","0x") : 0xff9829;
     
-    if (game.settings.get(MODULE_NAME,'use-player-color')) {
+    if (game.settings.get("smarttarget",'use-player-color')) {
       textColor = colorStringToHex(game.user['color']);
     }
     
