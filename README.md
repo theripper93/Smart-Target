@@ -6,7 +6,7 @@ A module to target with Alt+Click and show portraits instead of colored pips to 
 
 
 ![alt text](./wiki/smartTarget.jpg)
-
+![alt text](./wiki/targetoptions.jpg)
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
