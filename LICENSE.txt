@@ -1,5 +1,0 @@
-Legislation for the "no licence" apply to this code as written in github documentation. So the default copyright laws apply.
-
-You're under no obligation to choose a license. However, without a license, the default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
-
-for more information check here https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/licensing-a-repository
