@@ -17,6 +17,15 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
+  game.settings.register("smarttarget", "alwaysTarget", {
+    name: game.i18n.localize("smarttarget.settings.alwaysTarget.name"),
+    hint: game.i18n.localize("smarttarget.settings.alwaysTarget.hint"),
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
   game.settings.register("smarttarget", "portraitPips", {
     name: game.i18n.localize("smarttarget.settings.portraitPips.name"),
     hint: game.i18n.localize("smarttarget.settings.portraitPips.hint"),

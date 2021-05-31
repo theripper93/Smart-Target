@@ -120,6 +120,22 @@ Hooks.on("hoverToken", (token, hovered) => {
   }
 });
 
+Hooks.on("hoverToken", (token, hovered) => {
+  if (game.settings.get("smarttarget", "alwaysTarget")) {
+    if (!token.isOwner && hovered) {
+      if (ui.controls.control.activeTool != "target"){
+        token.smarttargetPrev = ui.controls.control.activeTool;
+      }
+      ui.controls.control.activeTool = "target";
+    } else if (!hovered) {
+      if (token.smarttargetPrev) {
+        ui.controls.control.activeTool = token.smarttargetPrev;
+        token.smarttargetPrev = null;
+      }
+    }
+  }
+});
+
 
 /**
  * Adds the clear targets/selection button to the menu.

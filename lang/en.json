@@ -2,6 +2,9 @@
     "smarttarget.settings.altTarget.name": "Target with Alt-Click",
     "smarttarget.settings.altTarget.hint": "Target tokens by pressing Alt+Click, add Shift to target multiple",
 
+    "smarttarget.settings.alwaysTarget.name": "Always Target",
+    "smarttarget.settings.alwaysTarget.hint": "Clicking on non-owned tokens automatically targets them",
+
     "smarttarget.settings.portraitPips.name": "Show portraits instead of colors as player target indicators, and customize target indicator",
     "smarttarget.settings.portraitPips.hint": "Uses avatar for GM, defaults to Token for players if no avatar is found for the assigned actor (requires refresh)",
 
