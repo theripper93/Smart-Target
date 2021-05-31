@@ -7,6 +7,9 @@
 
     "smarttarget.settings.portraitPips.name": "Show portraits instead of colors as player target indicators, and customize target indicator",
     "smarttarget.settings.portraitPips.hint": "Uses avatar for GM, defaults to Token for players if no avatar is found for the assigned actor (requires refresh)",
+   
+    "smarttarget.settings.insidePips.name": "Keep target indicators inside the token",
+    "smarttarget.settings.insidePips.hint": "Move the target indicators in a way that they remain inside the token border",
 
     "smarttarget.settings.pipImgScale.name": "Target Icon Image Scale",
     "smarttarget.settings.pipImgScale.hint": "Set the scale for the image used by the target icons (default: 1)",

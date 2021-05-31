@@ -35,6 +35,15 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
+  game.settings.register("smarttarget", "insidePips", {
+    name: game.i18n.localize("smarttarget.settings.insidePips.name"),
+    hint: game.i18n.localize("smarttarget.settings.insidePips.hint"),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
   game.settings.register("smarttarget", "pipImgScale", {
     name: game.i18n.localize("smarttarget.settings.pipImgScale.name"),
     hint: game.i18n.localize("smarttarget.settings.pipImgScale.hint"),

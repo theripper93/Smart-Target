@@ -58,6 +58,7 @@ function _refreshTarget() {
       let circleR = game.settings.get("smarttarget", "pipScale") || 12;
       let circleOffsetMult = game.settings.get("smarttarget", "pipOffset") || 16;
       let scaleMulti = game.settings.get("smarttarget", "pipImgScale") || 1;
+      let insidePip = game.settings.get("smarttarget", "insidePips") ? circleR : 0
       let texture = u.isGM
         ? new PIXI.Texture.from(u.avatar)
         : new PIXI.Texture.from(
@@ -77,22 +78,22 @@ function _refreshTarget() {
         0,
         0,
         (scaleMulti * (2 * circleR + 2)) / texture.height,
-        newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset,
-        newTexH / 2 + portraitCenterOffset
+        newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset+insidePip,
+        newTexH / 2 + portraitCenterOffset+insidePip
       );
       this.target
         .beginFill(color)
-        .drawCircle(2 + i * circleOffsetMult, 0, circleR)
+        .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
         .beginTextureFill({
           texture: texture,
           alpha: 1,
           matrix: matrix,
         })
         .lineStyle(borderThic, 0x0000000)
-        .drawCircle(2 + i * circleOffsetMult, 0, circleR)
+        .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
         .endFill()
         .lineStyle(borderThic / 2, color)
-        .drawCircle(2 + i * circleOffsetMult, 0, circleR);
+        .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR);
     }
   }else{
     for ( let [i, u] of others.entries() ) {
