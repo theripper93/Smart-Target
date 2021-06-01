@@ -1,5 +1,5 @@
 {
-    "name": "smarttarget",
+    "name": SMARTTARGET_MODULE_NAME,
     "title": "Smart Target",
     "description": "Enhancements for the targeting feature",
     "version": "0.2",

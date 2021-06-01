@@ -10,13 +10,13 @@ function _refreshTarget() {
 
   // For the current user, draw the target arrows
   if (userTarget) {
-    let textColor = game.settings.get("smarttarget", "crossairColor") ? game.settings.get("smarttarget", "crossairColor").replace("#","0x") : 0xff9829;
+    let textColor = game.settings.get(SMARTTARGET_MODULE_NAME, "crossairColor") ? game.settings.get(SMARTTARGET_MODULE_NAME, "crossairColor").replace("#","0x") : 0xff9829;
     
-    if (game.settings.get("smarttarget",'use-player-color')) {
+    if (game.settings.get(SMARTTARGET_MODULE_NAME,'use-player-color')) {
       textColor = colorStringToHex(game.user['color']);
     }
     
-    let p = game.settings.get("smarttarget", "crossairSpread") ? -10 : 4;
+    let p = game.settings.get(SMARTTARGET_MODULE_NAME, "crossairSpread") ? -10 : 4;
     let aw = 12;
     let h = this.h;
     let hh = h / 2;
@@ -24,7 +24,7 @@ function _refreshTarget() {
     let hw = w / 2;
     let ah = canvas.dimensions.size / 3;
 
-    let selectedIndicator = game.settings.get("smarttarget","target-indicator");
+    let selectedIndicator = game.settings.get(SMARTTARGET_MODULE_NAME,"target-indicator");
     switch (selectedIndicator) {
       case "0":
           drawDefault(this, textColor, p, aw, h, hh, w, hw, ah);
@@ -52,13 +52,13 @@ function _refreshTarget() {
   }
 
   // For other users, draw offset pips
-  if(game.settings.get("smarttarget", "portraitPips")){
+  if(game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips")){
     for (let [i, u] of others.entries()) {
       let color = colorStringToHex(u.data.color);
-      let circleR = game.settings.get("smarttarget", "pipScale") || 12;
-      let circleOffsetMult = game.settings.get("smarttarget", "pipOffset") || 16;
-      let scaleMulti = game.settings.get("smarttarget", "pipImgScale") || 1;
-      let insidePip = game.settings.get("smarttarget", "insidePips") ? circleR : 0
+      let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
+      let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
+      let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, "pipImgScale") || 1;
+      let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, "insidePips") ? circleR : 0
       let texture = u.isGM
         ? new PIXI.Texture.from(u.avatar)
         : new PIXI.Texture.from(
@@ -66,13 +66,13 @@ function _refreshTarget() {
           );
       let newTexW = scaleMulti * (2 * circleR);
       let newTexH = scaleMulti * (2 * circleR);
-      let borderThic = game.settings.get("smarttarget", "borderThicc");
+      let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, "borderThicc");
       let portraitCenterOffset =
         scaleMulti >= 1 ? (16 + circleR / 12) * Math.log2(scaleMulti) : 0;
       portraitCenterOffset +=
-        game.settings.get("smarttarget", "pipOffsetManualY") || 0;
+        game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffsetManualY") || 0;
       let portraitXoffset =
-        game.settings.get("smarttarget", "pipOffsetManualX") || 0;
+        game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffsetManualX") || 0;
       let matrix = new PIXI.Matrix(
         (scaleMulti * (2 * circleR + 2)) / texture.width,
         0,
@@ -106,7 +106,7 @@ function _refreshTarget() {
 }
 
 Hooks.on("hoverToken", (token, hovered) => {
-  if (game.settings.get("smarttarget", "altTarget")) {
+  if (game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
     if (keyboard._downKeys.has("Alt") && hovered) {
       if (ui.controls.control.activeTool != "target"){
         token.smarttargetPrev = ui.controls.control.activeTool;
@@ -122,7 +122,7 @@ Hooks.on("hoverToken", (token, hovered) => {
 });
 
 Hooks.on("hoverToken", (token, hovered) => {
-  if (game.settings.get("smarttarget", "alwaysTarget")) {
+  if (game.settings.get(SMARTTARGET_MODULE_NAME, "alwaysTarget")) {
     if (!token.isOwner && hovered) {
       if (ui.controls.control.activeTool != "target"){
         token.smarttargetPrev = ui.controls.control.activeTool;
@@ -150,7 +150,7 @@ function  getSceneControlButtonsHandler(controls) {
       name: "cancelTargets",
       title: "Clear Targets/Selection",
       icon:"fa fa-times-circle",
-      //visible: game.settings.get(MODULE_NAME, "XXX"),
+      //visible: game.settings.get(SMARTTARGET_MODULE_NAME, "XXX"),
       button:true,
       onClick: () => {
           control.activeTool = "select";

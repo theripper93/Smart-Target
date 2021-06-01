@@ -1,4 +1,4 @@
-const MODULE_NAME = "smarttarget";
+const SMARTTARGET_MODULE_NAME = "smarttarget";
 
 // Import JavaScript modules
 
@@ -8,7 +8,7 @@ const MODULE_NAME = "smarttarget";
 /* Initialize module					*/
 /* ------------------------------------ */
 Hooks.on("init", () => {
-  game.settings.register("smarttarget", "altTarget", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "altTarget", {
     name: game.i18n.localize("smarttarget.settings.altTarget.name"),
     hint: game.i18n.localize("smarttarget.settings.altTarget.hint"),
     scope: "client",
@@ -17,7 +17,7 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  game.settings.register("smarttarget", "alwaysTarget", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "alwaysTarget", {
     name: game.i18n.localize("smarttarget.settings.alwaysTarget.name"),
     hint: game.i18n.localize("smarttarget.settings.alwaysTarget.hint"),
     scope: "client",
@@ -26,7 +26,7 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  game.settings.register("smarttarget", "portraitPips", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "portraitPips", {
     name: game.i18n.localize("smarttarget.settings.portraitPips.name"),
     hint: game.i18n.localize("smarttarget.settings.portraitPips.hint"),
     scope: "world",
@@ -35,7 +35,7 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  game.settings.register("smarttarget", "insidePips", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "insidePips", {
     name: game.i18n.localize("smarttarget.settings.insidePips.name"),
     hint: game.i18n.localize("smarttarget.settings.insidePips.hint"),
     scope: "world",
@@ -44,7 +44,7 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  game.settings.register("smarttarget", "pipImgScale", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "pipImgScale", {
     name: game.i18n.localize("smarttarget.settings.pipImgScale.name"),
     hint: game.i18n.localize("smarttarget.settings.pipImgScale.hint"),
     scope: "world",
@@ -58,7 +58,7 @@ Hooks.on("init", () => {
     default: 1,
   });
 
-  game.settings.register("smarttarget", "pipOffsetManualY", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "pipOffsetManualY", {
     name: game.i18n.localize("smarttarget.settings.pipOffsetManualY.name"),
     hint: game.i18n.localize("smarttarget.settings.pipOffsetManualY.hint"),
     scope: "world",
@@ -72,7 +72,7 @@ Hooks.on("init", () => {
     default: 0,
   });
 
-  game.settings.register("smarttarget", "pipOffsetManualX", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "pipOffsetManualX", {
     name: game.i18n.localize("smarttarget.settings.pipOffsetManualX.name"),
     hint: game.i18n.localize("smarttarget.settings.pipOffsetManualX.hint"),
     scope: "world",
@@ -86,7 +86,7 @@ Hooks.on("init", () => {
     default: 0,
   });
 
-  game.settings.register("smarttarget", "pipScale", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "pipScale", {
     name: game.i18n.localize("smarttarget.settings.pipScale.name"),
     hint: game.i18n.localize("smarttarget.settings.pipScale.hint"),
     scope: "world",
@@ -100,7 +100,7 @@ Hooks.on("init", () => {
     default: 12,
   });
 
-  game.settings.register("smarttarget", "pipOffset", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "pipOffset", {
     name: game.i18n.localize("smarttarget.settings.pipOffset.name"),
     hint: game.i18n.localize("smarttarget.settings.pipOffset.hint"),
     scope: "world",
@@ -114,7 +114,7 @@ Hooks.on("init", () => {
     default: 16,
   });
 
-  game.settings.register("smarttarget", "borderThicc", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "borderThicc", {
     name: game.i18n.localize("smarttarget.settings.borderThicc.name"),
     hint: game.i18n.localize("smarttarget.settings.borderThicc.hint"),
     scope: "world",
@@ -128,7 +128,7 @@ Hooks.on("init", () => {
     default: 2,
   });
 
-  game.settings.register("smarttarget", "crossairSpread", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "crossairSpread", {
     name: game.i18n.localize("smarttarget.settings.crossairSpread.name"),
     hint: game.i18n.localize("smarttarget.settings.crossairSpread.hint"),
     scope: "client",
@@ -137,7 +137,7 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  game.settings.register("smarttarget", "crossairColor", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "crossairColor", {
     name: game.i18n.localize("smarttarget.settings.crossairColor.name"),
     hint: game.i18n.localize("smarttarget.settings.crossairColor.hint"),
     scope: "client",
@@ -146,7 +146,7 @@ Hooks.on("init", () => {
     default: "#ff9829",
   });
 
-  game.settings.register("smarttarget", "target-indicator", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "target-indicator", {
     name: game.i18n.localize("smarttarget.settings.target-indicator.name"),
     hint: game.i18n.localize("smarttarget.settings.target-indicator.hint"),
     scope: "client",
@@ -163,7 +163,7 @@ Hooks.on("init", () => {
     },
   });
 
-  game.settings.register("smarttarget", "use-player-color", {
+  game.settings.register(SMARTTARGET_MODULE_NAME, "use-player-color", {
     name: game.i18n.localize("smarttarget.settings.use-player-color.name"),
     hint: game.i18n.localize("smarttarget.settings.use-player-color.hint"),
     scope: "client",
@@ -173,7 +173,7 @@ Hooks.on("init", () => {
   });
 
   libWrapper.register(
-    "smarttarget",
+    SMARTTARGET_MODULE_NAME,
     "Token.prototype._refreshTarget",
     _refreshTarget,
     "OVERRIDE"
