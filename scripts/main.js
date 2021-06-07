@@ -35,6 +35,15 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
+  game.settings.register(SMARTTARGET_MODULE_NAME, "useToken", {
+    name: game.i18n.localize("smarttarget.settings.useToken.name"),
+    hint: game.i18n.localize("smarttarget.settings.useToken.hint"),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
   game.settings.register(SMARTTARGET_MODULE_NAME, "insidePips", {
     name: game.i18n.localize("smarttarget.settings.insidePips.name"),
     hint: game.i18n.localize("smarttarget.settings.insidePips.hint"),
