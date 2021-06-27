@@ -208,7 +208,7 @@ Hooks.on("init", () => {
   game.settings.register(SMARTTARGET_MODULE_NAME, "release", {
 		name: game.i18n.localize("smarttarget.settings.releaseBehaviour.name"),
 		hint: game.i18n.localize("smarttarget.settings.releaseBehaviour.hint"),
-		scope: "user",
+		scope: "client",
 		config: true,
 		default: "sticky",
 		type: String,
@@ -217,6 +217,24 @@ Hooks.on("init", () => {
 			"standard": game.i18n.localize("smarttarget.settings.releaseBehaviour.choice0.Standard")
 		}
 	});
+
+  game.settings.register(SMARTTARGET_MODULE_NAME, "forceToUseSelectedTokenForPortraitPips", {
+    name: game.i18n.localize("smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name"),
+    hint: game.i18n.localize("smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint"),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
+  game.settings.register(SMARTTARGET_MODULE_NAME, "useOwnedTokenIfNoTokenIsSelected", {
+    name: game.i18n.localize("smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name"),
+    hint: game.i18n.localize("smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint"),
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
 
   SmartTarget.init();
 

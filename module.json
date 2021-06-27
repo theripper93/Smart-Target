@@ -5,9 +5,9 @@
     "version": "0.5.0",
     "authors": [
         {
-            "name": "p4535992",
+            "name": "theripper93",
             "email": "tsplab@gmail.com",
-            "url": "https://www.patreon.com/p4535992"
+            "url": "https://www.patreon.com/theripper93"
         }
     ],
     "languages": [
@@ -24,13 +24,13 @@
     ],
     "minimumCoreVersion": "0.8.5",
     "compatibleCoreVersion": "0.8.8",
-    "url": "https://github.com/p4535992/Smart-Target",
-    "manifest": "https://raw.githubusercontent.com/p4535992/Smart-Target/main/module.json",
-    "download": "https://raw.githubusercontent.com/p4535992/Smart-Target/main/package/smarttarget.zip",
+    "url": "https://github.com/theripper93/Smart-Target",
+    "manifest": "https://github.com/theripper93/Smart-Target/releases/latest/download/module.json",
+    "download": "https://github.com/theripper93/Smart-Target/releases/latest/download/module.zip",
     "license": "",
-	"readme": "https://raw.githubusercontent.com/p4535992/Smart-Target/main/README.md",
-	"changelog": "https://raw.githubusercontent.com/p4535992/Smart-Target/master/changelog.md",
-  	"bugs": "https://github.com/p4535992/Smart-Target/issues",
+	"readme": "https://raw.githubusercontent.com/theripper93/Smart-Target/main/README.md",
+	"changelog": "https://raw.githubusercontent.com/theripper93/Smart-Target/master/changelog.md",
+  	"bugs": "https://github.com/theripper93/Smart-Target/issues",
   	"allowBugReporter": true,
     "dependencies": [
         {

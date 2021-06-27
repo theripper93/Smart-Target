@@ -59,5 +59,14 @@
     "smarttarget.settings.releaseBehaviour.name": "Release Behaviour",
 	"smarttarget.settings.releaseBehaviour.hint": "This setting determines how easy target behaves when clicking multiple tokens. 'Sticky' mode will target each clicked token without un-targeting anything, and you must click a token again to un-target it. 'Standard' mode more closely matches the standard foundry behaviour where all previous tokens are automatically un-targeted when clicking a new token, and you must hold Shift while clicking in order to target multiple tokens.",
 	"smarttarget.settings.releaseBehaviour.choice0.Standard": "Standard",
-	"smarttarget.settings.releaseBehaviour.choice0.Sticky": "Sticky"
+	"smarttarget.settings.releaseBehaviour.choice0.Sticky": "Sticky",
+
+    "smarttarget.warningNoSelectMoreThanOneToken": "No token is selected to set up the targets",
+    
+    "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name": "Force to use selected tokens image for build the indicator portraits",
+    "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "Force to use selected tokens image for build the indicator portraits",
+
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "Use the owned tokens if no tokens is selected",
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "This settings make sense only in combination with 'Force to use selected tokens image for build the indicator portraits'"
+  
 }

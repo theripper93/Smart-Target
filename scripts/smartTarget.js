@@ -40,7 +40,7 @@ const SmartTarget = {
     const oe = event.data.originalEvent;
     const tool = ui.controls.control.activeTool;
 
-    if (oe.altKey) {
+    if (oe.altKey && game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
       ui.controls.control.activeTool = 'target';
     }
 
@@ -65,7 +65,7 @@ const SmartTarget = {
     const oe = event.data.originalEvent;
     const tool = ui.controls.control.activeTool;
 
-    if (oe.altKey) {
+    if (oe.altKey && game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
       ui.controls.control.activeTool = 'target';
     }
 
@@ -92,13 +92,13 @@ const SmartTarget = {
     const tool = ui.controls.control.activeTool;
     const selectState = event.data._selectState;
 
-    if (oe.altKey) {
+    if (oe.altKey && game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
       ui.controls.control.activeTool = 'target';
     }
 
     wrapped(...args);
 
-    if (oe.altKey && selectState !== 2) {
+    if (oe.altKey && game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget") && selectState !== 2) {
       const {x: ox, y: oy} = event.data.origin;
       const templates = canvas.templates.objects.children.filter(template => {
         const {x: cx, y: cy} = template.center;
@@ -117,7 +117,7 @@ const SmartTarget = {
     const tool = ui.controls.control.activeTool;
     const layer = canvas.activeLayer;
 
-    if (oe.altKey) {
+    if (oe.altKey && game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
       ui.controls.control.activeTool = 'target';
     }
 
@@ -139,7 +139,7 @@ const SmartTarget = {
 
     wrapped(...args);
 
-    if (oe.altKey) {
+    if (oe.altKey && game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
       const template = new MeasuredTemplate(object.document);
       template.shape = SmartTarget.getTemplateShape(template);
       SmartTarget.targetTokensInArea([template], SmartTarget.releaseBehaviour(oe));
@@ -235,7 +235,7 @@ const SmartTarget = {
    * @param {int} i  -- the current row count
    * @param {Token} token -- PIXI.js container for height & width (the token)
    */
-  getNPCIcon : function(u, i, token, target){
+  buildTokenPortrait : function(u, i, token, target){
 
       let color = colorStringToHex(u.data.color); // Todo maybe we can add a new module settings for set the color of the npc hostile, neutral, friendly like in the module border control
       let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
@@ -331,67 +331,86 @@ const SmartTarget = {
     
       // For other users, draw offset pips
       if(game.settings.get(SMARTTARGET_MODULE_NAME, 'portraitPips')){
-
-        let index = 0;
-
-        for (let [i, u] of others.entries()) {
-          let color = colorStringToHex(u.data.color);
-          let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
-          let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffset') || 16;
-          let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipImgScale') || 1;
-          let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, 'insidePips') ? circleR : 0
-          let pTex 
-          if(!u.isGM) pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? u.character.data.token.img || u.character.data.img : u.character.data.img || u.character.data.token.img
-          let texture = u.isGM
-            ? new PIXI.Texture.from(u.avatar)
-            : new PIXI.Texture.from(
-              pTex
-              );
-          let newTexW = scaleMulti * (2 * circleR);
-          let newTexH = scaleMulti * (2 * circleR);
-          let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, 'borderThicc');
-          let portraitCenterOffset =
-            scaleMulti >= 1 ? (16 + circleR / 12) * Math.log2(scaleMulti) : 0;
-          portraitCenterOffset +=
-            game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualY') || 0;
-          let portraitXoffset =
-            game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualX') || 0;
-          let matrix = new PIXI.Matrix(
-            (scaleMulti * (2 * circleR + 2)) / texture.width,
-            0,
-            0,
-            (scaleMulti * (2 * circleR + 2)) / texture.height,
-            newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset+insidePip,
-            newTexH / 2 + portraitCenterOffset+insidePip
-          );
-          this.target
-            .beginFill(color)
-            .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
-            .beginTextureFill({
-              texture: texture,
-              alpha: 1,
-              matrix: matrix,
-            })
-            .lineStyle(borderThic, 0x0000000)
-            .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
-            .endFill()
-            .lineStyle(borderThic / 2, color)
-            .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR);
-
-            index = i;
-        }
-    
-        let arrayTokens = SmartTarget.getSelectedTokens();
-        if(arrayTokens){
-
-          index = index + 1;
-
-          for ( let [i, u] of arrayTokens.entries() ) {
-            index = index + i;
-            SmartTarget.getNPCIcon(game.user, index, u, this.target);
+        if(game.settings.get(SMARTTARGET_MODULE_NAME, 'forceToUseSelectedTokenForPortraitPips')){
+          let arrayTokens = SmartTarget.getSelectedTokens();
+          if(arrayTokens){
+            for ( let [i, u] of arrayTokens.entries() ) {
+              SmartTarget.buildTokenPortrait(game.user, i, u, this.target);
+            }
+          }else{
+            // Ignore if you are GM
+            if(!game.user.isGM){
+              if(game.settings.get(SMARTTARGET_MODULE_NAME, 'useOwnedTokenIfNoTokenIsSelected')){
+                // If no token is selected use the token of the users character
+                let token = canvas.tokens.placeables.find(token => token.data._id === game.user.character?.data?._id);             
+                // If no token is selected use the first owned token of the users character you found
+                if(!token){
+                  token = canvas.tokens.ownedTokens[0];
+                }
+                SmartTarget.buildTokenPortrait(game.user, 0, token, this.target);          
+              }else{
+                ui.notifications.warn(game.i18n.localize("smarttarget.warningNoSelectMoreThanOneToken"));
+                SmartTarget.clearTokenTargetsHandler(game.user, null);
+              }
+            }
           }
-        }
-    
+        }else{
+          for (let [i, u] of others.entries()) {
+            let color = colorStringToHex(u.data.color);
+            let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
+            let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffset') || 16;
+            let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipImgScale') || 1;
+            let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, 'insidePips') ? circleR : 0
+            let pTex;
+            if(!u.isGM){
+              let character = u.character;
+              if(!character){
+                character = u.data.character;
+              }
+              if(character){
+                pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? character.data.token.img || character.data.img : character.data.img || character.data.token.img;
+              }else{
+                pTex = u.data.avatar;
+              }
+            }
+            let texture = u.isGM
+              ? new PIXI.Texture.from(u.avatar)
+              : new PIXI.Texture.from(
+                pTex
+                );
+            let newTexW = scaleMulti * (2 * circleR);
+            let newTexH = scaleMulti * (2 * circleR);
+            let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, 'borderThicc');
+            let portraitCenterOffset =
+              scaleMulti >= 1 ? (16 + circleR / 12) * Math.log2(scaleMulti) : 0;
+            portraitCenterOffset +=
+              game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualY') || 0;
+            let portraitXoffset =
+              game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualX') || 0;
+            let matrix = new PIXI.Matrix(
+              (scaleMulti * (2 * circleR + 2)) / texture.width,
+              0,
+              0,
+              (scaleMulti * (2 * circleR + 2)) / texture.height,
+              newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset+insidePip,
+              newTexH / 2 + portraitCenterOffset+insidePip
+            );
+            this.target
+              .beginFill(color)
+              .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
+              .beginTextureFill({
+                texture: texture,
+                alpha: 1,
+                matrix: matrix,
+              })
+              .lineStyle(borderThic, 0x0000000)
+              .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
+              .endFill()
+              .lineStyle(borderThic / 2, color)
+              .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR);
+
+          }
+        }    
       }else{
         for ( let [i, u] of others.entries() ) {
           let color = colorStringToHex(u.data.color);
