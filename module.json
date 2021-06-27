@@ -2,7 +2,7 @@
     "name": "smarttarget",
     "title": "Smart Target",
     "description": "Enhancements for the targeting feature",
-    "version": "0.2",
+    "version": "0.5.0",
     "authors": [
         {
             "name": "theripper93",
@@ -34,7 +34,7 @@
   	"allowBugReporter": true,
     "dependencies": [
         {
-            "name": "lib-wrapper"
+          "name": "lib-wrapper"
         }
     ]
 }
