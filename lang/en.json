@@ -5,7 +5,7 @@
     "smarttarget.settings.alwaysTarget.name": "Always Target",
     "smarttarget.settings.alwaysTarget.hint": "Clicking on non-owned tokens automatically targets them",
 
-    "smarttarget.settings.portraitPips.name": "Show portraits instead of colors as player target indicators, and customize target indicator",
+    "smarttarget.settings.portraitPips.name": "Show indicator portraits instead of colors",
     "smarttarget.settings.portraitPips.hint": "Uses avatar for GM, defaults to Token for players if no avatar is found for the assigned actor (requires refresh)",
     
     "smarttarget.settings.useToken.name": "Use Tokens instead of Avatars",
