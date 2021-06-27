@@ -411,13 +411,15 @@ const SmartTarget = {
                 }
                 SmartTarget.buildTokenPortrait(game.user, 0, token, this.target);           
               }else{
-                ui.notifications.warn(game.i18n.localize("smarttarget.warningNoSelectMoreThanOneToken"));
-                SmartTarget.clearTokenTargetsHandler(game.user, null);
+                if(others?.length <= 0){
+                  ui.notifications.warn(game.i18n.localize("smarttarget.warningNoSelectMoreThanOneToken"));
+                  SmartTarget.clearTokenTargetsHandler(game.user, null);
+                }
               }
             }
-            for (let [i, u] of others.entries()) {
-              SmartTarget.buildCharacterPortrait(u, i, this.target);
-            } 
+          }
+          for (let [i, u] of others.entries()) {
+            SmartTarget.buildCharacterPortrait(u, i, this.target);
           }
         }else{
           for (let [i, u] of others.entries()) {
