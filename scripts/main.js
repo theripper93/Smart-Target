@@ -17,6 +17,30 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
+  // hotkeys.registerShortcut({
+	// 	name: SMARTTARGET_MODULE_NAME+".customHotKeyTarget", // <- Must be unique
+	// 	label: game.i18n.localize("smarttarget.settings.customHotKeyTarget.name"),
+	// 	get: () => game.settings.get(SMARTTARGET_MODULE_NAME, "customHotKeyTarget"),
+	// 	set: async value => await game.settings.set(SMARTTARGET_MODULE_NAME, "customHotKeyTarget", value),
+  //   scope: "client",
+  //   config: true,
+	// 	default: () => { return { key: null, alt: true, ctrl: false, shift: false }; },
+	// 	onKeyDown: self => { customRefreshTarget(false); },
+  //   type: String,
+	// });
+
+  // hotkeys.registerShortcut({
+	// 	name: SMARTTARGET_MODULE_NAME+".customHotKeyTargetMulti", // <- Must be unique
+	// 	label: game.i18n.localize("smarttarget.settings.customHotKeyTargetMulti.name"),
+	// 	get: () => game.settings.get(SMARTTARGET_MODULE_NAME, "customHotKeyTargetMulti"),
+	// 	set: async value => await game.settings.set(SMARTTARGET_MODULE_NAME, "customHotKeyTargetMulti", value),
+  //   scope: "client",
+  //   config: true,
+	// 	default: () => { return { key: null, alt: true, ctrl: false, shift: true }; },
+	// 	onKeyDown: self => { customRefreshTarget(true); },
+  //   type: String,
+	// });
+
   game.settings.register(SMARTTARGET_MODULE_NAME, "alwaysTarget", {
     name: game.i18n.localize("smarttarget.settings.alwaysTarget.name"),
     hint: game.i18n.localize("smarttarget.settings.alwaysTarget.hint"),
@@ -181,14 +205,33 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  libWrapper.register(
-    SMARTTARGET_MODULE_NAME,
-    "Token.prototype._refreshTarget",
-    _refreshTarget,
-    "OVERRIDE"
-  );
+  game.settings.register(SMARTTARGET_MODULE_NAME, "release", {
+		name: game.i18n.localize("smarttarget.settings.releaseBehaviour.name"),
+		hint: game.i18n.localize("smarttarget.settings.releaseBehaviour.hint"),
+		scope: "user",
+		config: true,
+		default: "sticky",
+		type: String,
+		choices: {
+			"sticky": game.i18n.localize("smarttarget.settings.releaseBehaviour.choice0.Sticky"),
+			"standard": game.i18n.localize("smarttarget.settings.releaseBehaviour.choice0.Standard")
+		}
+	});
 
-Hooks.on("getSceneControlButtons", getSceneControlButtonsHandler);
+  SmartTarget.init();
+
+  libWrapper.register(SMARTTARGET_MODULE_NAME,"Token.prototype._refreshTarget", SmartTarget._refreshTarget, "OVERRIDE");
+
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype.setTarget", SmartTarget.tokenSetTarget, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._onClickLeft", SmartTarget.tokenOnClickLeft, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._canControl", SmartTarget.tokenCanControl, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "TokenLayer.prototype.targetObjects", SmartTarget.tokenLayerTargetObjects, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "Canvas.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "Canvas.prototype._onDragLeftDrop", SmartTarget.canvasOnDragLeftDrop, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "TemplateLayer.prototype._onDragLeftDrop", SmartTarget.templateLayerOnDragLeftDrop, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "KeyboardManager.prototype._onKeyC", SmartTarget.keyboardManagerOnKeyC, "MIXED");
+  
+  Hooks.on("getSceneControlButtons",  SmartTarget.getSceneControlButtonsHandler);
 });
 
 /* ------------------------------------ */
@@ -203,6 +246,52 @@ Hooks.once("setup", function () {
 /* ------------------------------------ */
 Hooks.once("ready", () => {
   // Do anything once the module is ready
+	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM){
+    ui.notifications.error(`The "${SMARTTARGET_MODULE_NAME}" module requires to install and activate the "libWrapper" module.`);
+    return;
+  }
+  // if (!game.modules.get("lib-df-hotkey")?.active && game.user.isGM){
+  //   ui.notifications.error(`The "${SMARTTARGET_MODULE_NAME}" module requires to install and activate the "lib-df-hotkey" module.`);
+  //   return;
+  // }
 });
 
 // Add any additional hooks if necessary
+
+Hooks.on("hoverToken", (token, hovered) => {
+  if (game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")) {
+    if (keyboard._downKeys.has("Alt") && hovered) {
+      if (ui.controls.control.activeTool != "target"){
+        token.smarttargetPrev = ui.controls.control.activeTool;
+      }
+      ui.controls.control.activeTool = "target";
+    } else if (!hovered) {
+      if (token.smarttargetPrev) {
+        ui.controls.control.activeTool = token.smarttargetPrev;
+        token.smarttargetPrev = null;
+      }
+    }
+  }
+
+  if (game.settings.get(SMARTTARGET_MODULE_NAME, "alwaysTarget")) {
+    if (!token.isOwner && hovered) {
+      if (ui.controls.control.activeTool != "target"){
+        token.smarttargetPrev = ui.controls.control.activeTool;
+      }
+      ui.controls.control.activeTool = "target";
+    } else if (!hovered) {
+      if (token.smarttargetPrev) {
+        ui.controls.control.activeTool = token.smarttargetPrev;
+        token.smarttargetPrev = null;
+      }
+    }
+  }
+});
+
+document.addEventListener("keydown", event => {
+	if ((event.altKey && event.key === "C") || (event.ctrlKey && event.key === "C")) {
+		game.user.targets.forEach(token =>
+			token.setTarget(false, {releaseOthers: false, groupSelection: true}));
+		game.user.broadcastActivity({targets: game.user.targets.ids});
+	}
+});
