@@ -199,7 +199,7 @@ Hooks.on("init", () => {
   game.settings.register(SMARTTARGET_MODULE_NAME, "use-player-color", {
     name: game.i18n.localize("smarttarget.settings.use-player-color.name"),
     hint: game.i18n.localize("smarttarget.settings.use-player-color.hint"),
-    scope: "client",
+    scope: "world",
     config: true,
     default: false,
     type: Boolean,
