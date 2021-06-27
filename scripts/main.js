@@ -307,9 +307,11 @@ Hooks.on("hoverToken", (token, hovered) => {
 });
 
 document.addEventListener("keydown", event => {
-	if ((event.altKey && event.key === "C") || (event.ctrlKey && event.key === "C")) {
-		game.user.targets.forEach(token =>
-			token.setTarget(false, {releaseOthers: false, groupSelection: true}));
-		game.user.broadcastActivity({targets: game.user.targets.ids});
-	}
+  if(game.settings.get(SMARTTARGET_MODULE_NAME, "altTarget")){
+    if ((event.altKey && event.key === "C") || (event.ctrlKey && event.key === "C")) {
+      game.user.targets.forEach(token =>
+        token.setTarget(false, {releaseOthers: false, groupSelection: true}));
+      game.user.broadcastActivity({targets: game.user.targets.ids});
+    }
+  }
 });
