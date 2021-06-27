@@ -233,7 +233,69 @@ const SmartTarget = {
    * Creates a sprite from the selected avatar and positions around the container
    * @param {User} u -- the user to get
    * @param {int} i  -- the current row count
+   * @param {token} target -- PIXI.js container for height & width (the token)
+   */
+  buildCharacterPortrait : function(u, i, target){
+    let color = colorStringToHex(u.data.color);
+    let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
+    let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffset') || 16;
+    let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipImgScale') || 1;
+    let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, 'insidePips') ? circleR : 0
+    let pTex;
+    if(!u.isGM){
+      let character = u.character;
+      if(!character){
+        character = u.data.character;
+      }
+      if(character){
+        pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? character.data.token.img || character.data.img : character.data.img || character.data.token.img;
+      }else{
+        pTex = u.data.avatar;
+      }
+    }
+    let texture = u.isGM
+      ? new PIXI.Texture.from(u.avatar)
+      : new PIXI.Texture.from(
+        pTex
+        );
+    let newTexW = scaleMulti * (2 * circleR);
+    let newTexH = scaleMulti * (2 * circleR);
+    let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, 'borderThicc');
+    let portraitCenterOffset =
+      scaleMulti >= 1 ? (16 + circleR / 12) * Math.log2(scaleMulti) : 0;
+    portraitCenterOffset +=
+      game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualY') || 0;
+    let portraitXoffset =
+      game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualX') || 0;
+    let matrix = new PIXI.Matrix(
+      (scaleMulti * (2 * circleR + 2)) / texture.width,
+      0,
+      0,
+      (scaleMulti * (2 * circleR + 2)) / texture.height,
+      newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset+insidePip,
+      newTexH / 2 + portraitCenterOffset+insidePip
+    );
+    target
+      .beginFill(color)
+      .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
+      .beginTextureFill({
+        texture: texture,
+        alpha: 1,
+        matrix: matrix,
+      })
+      .lineStyle(borderThic, 0x0000000)
+      .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
+      .endFill()
+      .lineStyle(borderThic / 2, color)
+      .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR);
+  },
+
+  /**
+   * Creates a sprite from the selected avatar and positions around the container
+   * @param {User} u -- the user to get
+   * @param {int} i  -- the current row count
    * @param {Token} token -- PIXI.js container for height & width (the token)
+   * @param {token} target
    */
   buildTokenPortrait : function(u, i, token, target){
 
@@ -347,68 +409,19 @@ const SmartTarget = {
                 if(!token){
                   token = canvas.tokens.ownedTokens[0];
                 }
-                SmartTarget.buildTokenPortrait(game.user, 0, token, this.target);          
+                SmartTarget.buildTokenPortrait(game.user, 0, token, this.target);           
               }else{
                 ui.notifications.warn(game.i18n.localize("smarttarget.warningNoSelectMoreThanOneToken"));
                 SmartTarget.clearTokenTargetsHandler(game.user, null);
               }
             }
+            for (let [i, u] of others.entries()) {
+              SmartTarget.buildCharacterPortrait(u, i, this.target);
+            } 
           }
         }else{
           for (let [i, u] of others.entries()) {
-            let color = colorStringToHex(u.data.color);
-            let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
-            let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffset') || 16;
-            let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipImgScale') || 1;
-            let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, 'insidePips') ? circleR : 0
-            let pTex;
-            if(!u.isGM){
-              let character = u.character;
-              if(!character){
-                character = u.data.character;
-              }
-              if(character){
-                pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? character.data.token.img || character.data.img : character.data.img || character.data.token.img;
-              }else{
-                pTex = u.data.avatar;
-              }
-            }
-            let texture = u.isGM
-              ? new PIXI.Texture.from(u.avatar)
-              : new PIXI.Texture.from(
-                pTex
-                );
-            let newTexW = scaleMulti * (2 * circleR);
-            let newTexH = scaleMulti * (2 * circleR);
-            let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, 'borderThicc');
-            let portraitCenterOffset =
-              scaleMulti >= 1 ? (16 + circleR / 12) * Math.log2(scaleMulti) : 0;
-            portraitCenterOffset +=
-              game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualY') || 0;
-            let portraitXoffset =
-              game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffsetManualX') || 0;
-            let matrix = new PIXI.Matrix(
-              (scaleMulti * (2 * circleR + 2)) / texture.width,
-              0,
-              0,
-              (scaleMulti * (2 * circleR + 2)) / texture.height,
-              newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset+insidePip,
-              newTexH / 2 + portraitCenterOffset+insidePip
-            );
-            this.target
-              .beginFill(color)
-              .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
-              .beginTextureFill({
-                texture: texture,
-                alpha: 1,
-                matrix: matrix,
-              })
-              .lineStyle(borderThic, 0x0000000)
-              .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR)
-              .endFill()
-              .lineStyle(borderThic / 2, color)
-              .drawCircle(2 + i * circleOffsetMult+insidePip, 0+insidePip, circleR);
-
+            SmartTarget.buildCharacterPortrait(u, i, this.target);
           }
         }    
       }else{

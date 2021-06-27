@@ -66,7 +66,7 @@
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name": "Force to use selected tokens image for build the indicator portraits",
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "Force to use selected tokens image for build the indicator portraits",
 
-    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "Use the owned tokens if no tokens is selected",
-    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "This settings make sense only in combination with 'Force to use selected tokens image for build the indicator portraits'"
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "Use the owned tokens if no tokens is selected (Ignored if you are GM)",
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "This settings make sense only in combination with 'Force to use selected tokens image for build the indicator portraits' (Ignored if you are GM)"
   
 }
