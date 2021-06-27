@@ -59,7 +59,8 @@ function _refreshTarget() {
       let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
       let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, "pipImgScale") || 1;
       let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, "insidePips") ? circleR : 0
-      let pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? u.character.data.token.img || u.character.data.img : u.character.data.img || u.character.data.token.img
+      let pTex 
+      if(!u.isGM) pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? u.character.data.token.img || u.character.data.img : u.character.data.img || u.character.data.token.img
       let texture = u.isGM
         ? new PIXI.Texture.from(u.avatar)
         : new PIXI.Texture.from(
