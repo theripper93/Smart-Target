@@ -1,0 +1,72 @@
+{
+    "smarttarget.settings.altTarget.name": "［Alt］＋クリックでターゲット選択",
+    "smarttarget.settings.altTarget.hint": "［Alt］＋クリックしたコマをターゲットに指定します。［Shift］を加えると複数指定できます。",
+
+    "smarttarget.settings.alwaysTarget.name": "常にターゲットとして選択する",
+    "smarttarget.settings.alwaysTarget.hint": "所有していないコマをクリックすると、ターゲットとして選択されるようになります。",
+
+    "smarttarget.settings.portraitPips.name": "インジケータに色でなくポートレートを使用する",
+    "smarttarget.settings.portraitPips.hint": "ターゲット・インジケータにプレイヤー（またはGM）のアバター画像を使用します。未設定の場合はコマ画像が使用されます（要再読込）。",
+
+    "smarttarget.settings.useToken.name": "アバターでなくコマ画像を使用する",
+    "smarttarget.settings.useToken.hint": "プレイヤーのターゲット・インジケータに、アバターではなくコマ画像を使用します。",
+
+    "smarttarget.settings.insidePips.name": "インジケータをコマの枠内に収める",
+    "smarttarget.settings.insidePips.hint": "ターゲット・インジケータをコマの枠内に収まるように移動します。",
+
+    "smarttarget.settings.pipImgScale.name": "インジケータ画像の表示サイズ",
+    "smarttarget.settings.pipImgScale.hint": "ターゲット・インジケータに使用する画像の拡縮率を指定します（デフォルト：1）。",
+
+    "smarttarget.settings.pipOffsetManualY.name": "インジケータ画像のY軸オフセット",
+    "smarttarget.settings.pipOffsetManualY.hint": "画像に加える垂直方向のオフセット値をピクセル単位で指定します（デフォルト：0）。",
+
+    "smarttarget.settings.pipOffsetManualX.name": "インジケータ画像のX軸オフセット",
+    "smarttarget.settings.pipOffsetManualX.hint": "画像に加える水平方向のオフセット値をピクセル単位で指定します（デフォルト：0）。",
+
+    "smarttarget.settings.pipScale.name": "インジケータのアイコンサイズ",
+    "smarttarget.settings.pipScale.hint": "ターゲット・インジケータのアイコンサイズをピクセル単位で指定します（デフォルト：12）",
+
+    "smarttarget.settings.pipOffset.name": "インジケータのアイコンオフセット",
+    "smarttarget.settings.pipOffset.hint": "ターゲット・インジケータのアイコンの間隔をピクセル単位で指定します（デフォルト：16）。",
+
+    "smarttarget.settings.borderThicc.name": "縁の太さ",
+    "smarttarget.settings.borderThicc.hint": "境界線の太さをピクセル単位で指定します（デフォルト：2）。",
+
+    "smarttarget.settings.crossairSpread.name": "ターゲット・マークを枠内に収める",
+    "smarttarget.settings.crossairSpread.hint": "ターゲット・マークの表示を変更し、コマの枠内に収めます（Foundry標準のみ）。",
+
+    "smarttarget.settings.crossairColor.name": "ターゲット・マークの色",
+    "smarttarget.settings.crossairColor.hint": "ターゲット・アローの色を16進数カラーコードで指定します（デフォルト：#ff9829）",
+
+    "smarttarget.settings.target-indicator.name" : "ターゲット・マーク",
+    "smarttarget.settings.target-indicator.hint" : "ターゲットしたコマに表示するマークを選択します。",
+    "smarttarget.settings.target-indicator-choices-0" : "Foundry標準",
+    "smarttarget.settings.target-indicator-choices-1" : "クロスヘア1",
+    "smarttarget.settings.target-indicator-choices-2" : "クロスヘア2",
+    "smarttarget.settings.target-indicator-choices-3" : "ブルズアイ1",
+    "smarttarget.settings.target-indicator-choices-4" : "ブルズアイ2",
+    "smarttarget.settings.target-indicator-choices-5" : "Better Target",
+
+    "smarttarget.settings.use-player-color.name" : "ターゲット・マークにプレイヤーカラーを使用する",
+    "smarttarget.settings.use-player-color.hint" : "ターゲット・マークの色がプレイヤーカラーに準拠するようになります。",
+
+    "smarttarget.settings.customHotKeyTarget.name": "ターゲットに使用するホットキー",
+    "smarttarget.settings.customHotKeyTarget.hint": "ターゲットに使用するホットキーをカスタマイズします。複数のコマを選択するには［Shift］を使います。",
+
+    "smarttarget.settings.customHotKeyTargetMulti.name": "マルチターゲットに使用するホットキー",
+    "smarttarget.settings.customHotKeyTargetMulti.hint": "マルチターゲットに使用するホットキーをカスタマイズします。複数のコマを選択するには［Shift］を使います。",
+
+    "smarttarget.settings.releaseBehaviour.name": "ターゲット選択の挙動",
+	"smarttarget.settings.releaseBehaviour.hint": "この設定は、複数のコマをクリックしたときの目標選択の挙動を設定するものです。「選択優先」では連続クリックで複数のコマをターゲットできます。一方で、ターゲットを外すにはコマを再度クリックする必要があります。「標準」はFoundryの標準的な動作に近く、複数のコマをターゲットにするには［Shift］キーと組み合わせが必要になります。",
+	"smarttarget.settings.releaseBehaviour.choice0.Standard": "標準",
+	"smarttarget.settings.releaseBehaviour.choice0.Sticky": "選択優先",
+
+    "smarttarget.warningNoSelectMoreThanOneToken": "ターゲットに設定するコマが選択されていません。",
+    
+    "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name": "インジケータに強制的にコマ画像を使用する",
+    "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "ターゲット・インジケータの画像に、選択コマの画像が強制的に使用されるようになります。",
+
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "コマ未選択時は所有者権限を持つコマの画像を使用する（GMを除く）",
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "この設定は「インジケータに強制的にコマ画像を使用する」との組み合わせで機能します。"
+  
+}
