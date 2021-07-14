@@ -51,9 +51,6 @@ const SmartTarget = {
     wrapped(...args);
 
     SmartTarget.releaseOthersMap.delete(this);
-    if (hasProperty(this.target.parent.data, 'flags.'+SMARTTARGET_MODULE_NAME+'.imagePortrait_'+this.target.parent.data.actorId)) {
-      this.target.parent.unsetFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+this.target.parent.data.actorId);
-    }
     ui.controls.control.activeTool = tool;
   },
 
@@ -130,9 +127,6 @@ const SmartTarget = {
     wrapped(...args);
 
     SmartTarget.releaseOthersMap.delete(layer);
-    if (hasProperty(this.target.parent.data, 'flags.'+SMARTTARGET_MODULE_NAME+'.imagePortrait_'+this.target.parent.data.actorId)) {
-      this.target.parent.unsetFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+this.target.parent.data.actorId);
-    }
     ui.controls.control.activeTool = tool;
   },
 
@@ -212,11 +206,6 @@ const SmartTarget = {
    * @param {TokenLayer} tokenlayer  -- token layer
   */
   clearTokenTargetsHandler : function (user, tokenlayer) {
-    for ( let [i, t] of user.targets.entries() ) {
-      if (hasProperty(t.data, 'flags.'+SMARTTARGET_MODULE_NAME+'.imagePortrait_'+t.data.actorId)) {
-        t.unsetFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+t.data.actorId);
-      }
-    }
     user.targets.forEach(t => t.setTarget(false, {
         user: user,
         releaseOthers: true,
@@ -245,13 +234,7 @@ const SmartTarget = {
    * @param {token} target -- PIXI.js container for height & width (the token)
    */
   buildCharacterPortrait : function(u, i, target){
-    let pTexTmp;
-    for ( let [i, t] of u.targets.entries() ) {
-      pTexTmp = t.getFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+target.parent.data.actorId);
-      if(pTexTmp){
-        break;
-      }
-    }
+    let pTexTmp = SmartTarget.getTokenImage(game.scenes.active.id, target.parent.data._id);
     let color = colorStringToHex(u.data.color);
     let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
     let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffset') || 16;
@@ -266,11 +249,11 @@ const SmartTarget = {
       if(character){
         pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken") ? character.data.token.img || character.data.img : character.data.img || character.data.token.img;
       }else{
-        if(pTexTmp){
-          pTex = pTexTmp;
-        }else{
+       if(pTexTmp){
+         pTex = pTexTmp;
+       }else{
           pTex = u.data.avatar;
-        }
+       }
       }
     }
     let texture = u.isGM
@@ -319,13 +302,16 @@ const SmartTarget = {
    * @param {token} target
    */
   buildTokenPortrait : function(u, i, token, target){
-
+      let pTexTmp = SmartTarget.getTokenImage(game.scenes.active.id, token.data._id);
       let color = colorStringToHex(u.data.color); // Todo maybe we can add a new module settings for set the color of the npc hostile, neutral, friendly like in the module border control
       let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipScale') || 12;
       let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipOffset') || 16;
       let scaleMulti = game.settings.get(SMARTTARGET_MODULE_NAME, 'pipImgScale') || 1;
       let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, 'insidePips') ? circleR : 0;
       let pTex = token.data.img;
+      if(!pTex && pTexTmp){
+        pTex = pTexTmp;
+      }
       let texture = new PIXI.Texture.from(pTex);
       let newTexW = scaleMulti * (2 * circleR);
       let newTexH = scaleMulti * (2 * circleR);
@@ -420,22 +406,18 @@ const SmartTarget = {
           if(arrayTokens){
             for ( let [i, u] of arrayTokens.entries() ) {
               let pTex = SmartTarget.buildTokenPortrait(game.user, i, u, this.target);
-              for ( let [i, t] of game.user.targets.entries() ) {
-                t.setFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+this.target.parent.data.actorId, pTex);
-              }
             }
           }else{
             // Ignore if you are GM
             if(!game.user.isGM){
               if(game.settings.get(SMARTTARGET_MODULE_NAME, 'useOwnedTokenIfNoTokenIsSelected')){
                 // If no token is selected use the token of the users character
-                let token = canvas.tokens.placeables.find(token => token.data._id === game.user.character?.data?._id);             
+                let token = canvas.tokens.placeables.find(token => token.data.id === game.user.character?.data?.id);             
                 // If no token is selected use the first owned token of the users character you found
                 if(!token){
                   token = canvas.tokens.ownedTokens[0];
                 }
-                let pTex = SmartTarget.buildTokenPortrait(game.user, 0, token, this.target);
-                token.setFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+this.target.parent.data.actorId, pTex);     
+                let pTex = SmartTarget.buildTokenPortrait(game.user, 0, token, this.target);   
               }else{
                 if(others?.length <= 0){
                   ui.notifications.warn(game.i18n.localize('smarttarget.warningNoSelectMoreThanOneToken'));
@@ -446,16 +428,10 @@ const SmartTarget = {
           }
           for (let [i, u] of others.entries()) {
             let pTex = SmartTarget.buildCharacterPortrait(u, i, this.target);
-            for ( let [i, t] of u.targets.entries() ) {
-              t.setFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+this.target.parent.data.actorId, pTex);
-            }
           }
         }else{
           for (let [i, u] of others.entries()) {
             let pTex = SmartTarget.buildCharacterPortrait(u, i, this.target);
-            for ( let [i, t] of u.targets.entries() ) {
-              t.setFlag(SMARTTARGET_MODULE_NAME, 'imagePortrait_'+this.target.parent.data.actorId, pTex);
-            }
           }
         }    
       }else{
@@ -464,6 +440,32 @@ const SmartTarget = {
           this.target.beginFill(color, 1.0).lineStyle(2, 0x0000000).drawCircle(2 + (i * 8), 0, 6);
         }
       }   
+    },
+
+    getTokenImage: function(sceneID, tokenID) {
+      return SmartTarget.getToken(sceneID, tokenID)?.data?.img;
+    },
+
+    getToken: function(sceneID, tokenID) {
+      const specifiedScene = game.scenes.get(sceneID);
+      if (specifiedScene) {
+        return SmartTarget.getTokenForScene(specifiedScene, tokenID);
+      }
+      let foundToken = null;
+      game.scenes.find((scene) => {
+        foundToken = SmartTarget.getTokenForScene(scene, tokenID);
+        return !!foundToken;
+      });
+      return foundToken;
+    },
+
+    getTokenForScene: function(scene, tokenID) {
+      if (!scene) {
+        return null;
+      }
+      return scene.data.tokens.find((token) => {
+        return token.id === tokenID;
+      });
     }
 
 };
