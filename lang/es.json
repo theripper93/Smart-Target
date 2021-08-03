@@ -50,7 +50,7 @@
     "smarttarget.settings.target-indicator-choices-4" : "Diana 2",
     "smarttarget.settings.target-indicator-choices-5" : "Better Target",
 
-    "smarttarget.settings.use-player-color.name" : "Usar color del jugador en ell indicador",
+    "smarttarget.settings.use-player-color.name" : "Usar color del jugador en el indicador",
     "smarttarget.settings.use-player-color.hint" : "Usa el color del jugador para el indicador de objetivo",
 
     "smarttarget.settings.customHotKeyTarget.name": "Seleccionar objetivo con tecla personalizada",
