@@ -22,7 +22,7 @@ class SmartTarget {
         }
         break;
       case 2:
-        if (!game.user.isGM && !this.isOwner) {
+        if ((!game.user.isGM && !this.isOwner) || (this.isOwner && oe.altKey)) {
           SmartTarget.handleTargeting(this,oe.shiftKey);
           return
         } else {
@@ -56,6 +56,19 @@ class SmartTarget {
           }
         }
       }
+    }
+    return wrapped(...args);
+  }
+
+  static _canControl(wrapped,...args){
+    if(!args[1]) return wrapped(...args);
+    const mode = SmartTarget.settings().mode;
+    const oe = args[1].data.originalEvent;
+    switch (mode) {
+      case 1:
+        if (oe.altKey) return true
+      case 2:
+        if (!game.user.isGM && !this.isOwner) return true
     }
     return wrapped(...args);
   }
