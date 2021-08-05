@@ -199,7 +199,7 @@ Hooks.on("init", () => {
         icon:'fa fa-times-circle',
         button:true,
         onClick: () => {
-            game.user.targets.clear()
+          canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
         },
         layer: 'TokenLayer'
     });

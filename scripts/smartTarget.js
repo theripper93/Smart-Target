@@ -49,7 +49,8 @@ class SmartTarget {
         }
       }
       if(closestTemplate){
-        game.user.targets.clear()
+        const release = oe.shiftKey ? !SmartTarget.settings().release : SmartTarget.settings().release;
+        if (release)canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
         for(let token of canvas.tokens.placeables){
           if(closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y)){
             token.setTarget(!token.isTargeted, { releaseOthers: false });
