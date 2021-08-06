@@ -79,7 +79,7 @@ class SmartTarget {
    * @param {int} i  -- the current row count
    * @param {token} target -- PIXI.js container for height & width (the token)
    */
-  static buildCharacterPortrait(u, i, target) {
+  static async buildCharacterPortrait(u, i, target, token) {
     let color = colorStringToHex(u.data.color);
     let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
     let circleOffsetMult =
@@ -103,9 +103,11 @@ class SmartTarget {
         pTex = u.data.avatar;
       }
     }
+    const gmTexSetting = game.settings.get(SMARTTARGET_MODULE_NAME, "useTokenGm")
+    let gmTexture = gmTexSetting ? token.document.getFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg") || u.avatar : u.avatar
     let texture = u.isGM
-      ? new PIXI.Texture.from(u.avatar)
-      : new PIXI.Texture.from(pTex);
+      ? await new PIXI.Texture.fromURL(gmTexture)
+      : await new PIXI.Texture.fromURL(pTex);
     let newTexW = scaleMulti * (2 * circleR);
     let newTexH = scaleMulti * (2 * circleR);
     let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, "borderThicc");
@@ -139,7 +141,14 @@ class SmartTarget {
   }
 
   // Draw custom crosshair and pips
-  static _refreshTarget() {
+  static async _refreshTarget() {
+    if(game.user.isGM) {
+      let flag
+      const gmTexSetting = game.settings.get(SMARTTARGET_MODULE_NAME, "useTokenGm")
+      if(gmTexSetting == 1) flag = _token?.actor?.data.img || _token?.data.img
+      if(gmTexSetting == 2) flag = _token?.data.img || _token?.actor?.data.img 
+      flag && this.document.setFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg",flag)
+    }
     this.target.clear();
     if (!this.targeted.size) return;
 
@@ -206,7 +215,7 @@ class SmartTarget {
     // For other users, draw offset pips
     if (game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips")) {
       for (let [i, u] of others.entries()) {
-        SmartTarget.buildCharacterPortrait(u, i, this.target);
+        SmartTarget.buildCharacterPortrait(u, i, this.target,this);
       }
     } else {
       for (let [i, u] of others.entries()) {
