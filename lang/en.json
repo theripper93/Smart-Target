@@ -5,11 +5,24 @@
     "smarttarget.settings.alwaysTarget.name": "Always Target",
     "smarttarget.settings.alwaysTarget.hint": "Clicking on non-owned tokens automatically targets them",
 
+    "smarttarget.settings.targetingMode.name": "Targeting Mode",
+    "smarttarget.settings.targetingMode.hint": "Default: Default foundry behaviour. Alt-click: Target tokens by pressing Alt+Click, add Shift to target multiple. Always Target: Clicking on non-owned tokens automatically targets them",
+
+    "smarttarget.settings.targetingMode.opt0": "Default",
+    "smarttarget.settings.targetingMode.opt1": "Alt-Click",
+    "smarttarget.settings.targetingMode.opt2": "Always Target (Player Only)",
+
     "smarttarget.settings.portraitPips.name": "Show indicator portraits instead of colors",
     "smarttarget.settings.portraitPips.hint": "Uses avatar for GM, defaults to Token for players if no avatar is found for the assigned actor (requires refresh)",
 
     "smarttarget.settings.useToken.name": "Use Tokens instead of Avatars",
     "smarttarget.settings.useToken.hint": "Use tokens instead of avatars for players target indicators",
+
+    "smarttarget.settings.useTokenGm.name": "Gm image",
+    "smarttarget.settings.useTokenGm.hint": "The image to use on indicator portraits for the GM",
+    "smarttarget.settings.useTokenGm.opt0": "Player Avatar",
+    "smarttarget.settings.useTokenGm.opt1": "Token Portrait",
+    "smarttarget.settings.useTokenGm.opt2": "Token Image",
 
     "smarttarget.settings.insidePips.name": "Keep target indicators inside the token",
     "smarttarget.settings.insidePips.hint": "Move the target indicators in a way that they remain inside the token border",
@@ -62,6 +75,7 @@
 	"smarttarget.settings.releaseBehaviour.choice0.Sticky": "Sticky",
 
     "smarttarget.warningNoSelectMoreThanOneToken": "No token is selected to set up the targets",
+    "smarttarget.controls.cleartargets.name": "Clear All Targets",
     
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name": "Force to use selected tokens image for build the indicator portraits",
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "Force to use selected tokens image for build the indicator portraits",
