@@ -8,11 +8,24 @@
     "smarttarget.settings.alwaysTarget.name": "Siempre seleccionar objetivo",
     "smarttarget.settings.alwaysTarget.hint": "Hacer clic en iconos que no se controle los seleccionará automáticamente como objetivo",
 
+    "smarttarget.settings.targetingMode.name": "Modo de selección de objetivos",
+    "smarttarget.settings.targetingMode.hint": "Por defecto: el comportamiento habitual de Foundry. Alt-clic: se seleccionan objetivos pulsando Alt+clic, y con Mayús se añaden múltiples objetivos. Seleccionar siempre: al hacer clic en un icono que no se posee, se le selecciona como objetivo automáticamente",
+
+    "smarttarget.settings.targetingMode.opt0": "Por defecto",
+    "smarttarget.settings.targetingMode.opt1": "Alt-clic",
+    "smarttarget.settings.targetingMode.opt2": "Seleccionar siempre (solo jugadores)",
+
     "smarttarget.settings.portraitPips.name": "Mostrar indicadores-retrato en lugar de colores",
     "smarttarget.settings.portraitPips.hint": "Usa el avatar para el GM, por defecto el icono para los jugadores si el actor asignado no tiene ningún avatar (requiere refrescar)",
 
     "smarttarget.settings.useToken.name": "Usar iconos en lugar de avatares",
     "smarttarget.settings.useToken.hint": "Usa iconos en lugar de avatares como indicadores de objetivo de los jugadores",
+
+    "smarttarget.settings.useTokenGm.name": "Imagen para el GM",
+    "smarttarget.settings.useTokenGm.hint": "La imagen que se usa como indicador para el GM",
+    "smarttarget.settings.useTokenGm.opt0": "Avatar del jugador",
+    "smarttarget.settings.useTokenGm.opt1": "Ratrato del icono",
+    "smarttarget.settings.useTokenGm.opt2": "Imagen del icono",
 
     "smarttarget.settings.insidePips.name": "Mantener indicadores de objetivos dentro del icono",
     "smarttarget.settings.insidePips.hint": "Mueve los indicadores de objetivo de modo que permanezcan dentro de los bordes del icono",
@@ -50,7 +63,7 @@
     "smarttarget.settings.target-indicator-choices-4" : "Diana 2",
     "smarttarget.settings.target-indicator-choices-5" : "Better Target",
 
-    "smarttarget.settings.use-player-color.name" : "Usar color del jugador en ell indicador",
+    "smarttarget.settings.use-player-color.name" : "Usar color del jugador en el indicador",
     "smarttarget.settings.use-player-color.hint" : "Usa el color del jugador para el indicador de objetivo",
 
     "smarttarget.settings.customHotKeyTarget.name": "Seleccionar objetivo con tecla personalizada",
@@ -65,6 +78,7 @@
 	"smarttarget.settings.releaseBehaviour.choice0.Sticky": "Adherente",
 
     "smarttarget.warningNoSelectMoreThanOneToken": "No se ha seleccionado ningún icono al que asignar objetivos",
+    "smarttarget.controls.cleartargets.name": "Limpiar objetivos",
     
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name": "Forzar el uso de la imagen de los iconos seleccionados como objetivo",
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "Forzar el uso de la imagen de los iconos seleccionados como objetivo para crear los indicadores-retrato",
