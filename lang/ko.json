@@ -1,0 +1,86 @@
+{
+    "smarttarget.settings.altTarget.name": "Alt-클릭 대상 지정",
+    "smarttarget.settings.altTarget.hint": "Alt+클릭을 하여 토큰을 대상 지정하며, Shift로 여러 대상을 추가할 수 있다.",
+
+    "smarttarget.settings.alwaysTarget.name": "항상 대상 지정",
+    "smarttarget.settings.alwaysTarget.hint": "소유하지 않은 토큰을 클릭하면 자동으로 대상 지정된다.",
+
+    "smarttarget.settings.targetingMode.name": "대상 지정 모드",
+    "smarttarget.settings.targetingMode.hint": "기본값: 파운드리 기본 방식. Alt-클릭: Alt+클릭을 하여 토큰을 대상 지정하며, Shift로 여러 대상을 추가할 수 있다. 항상 대상 지정: 소유하지 않은 토큰을 클릭하면 자동으로 대상 지정된다.",
+
+    "smarttarget.settings.targetingMode.opt0": "기본값",
+    "smarttarget.settings.targetingMode.opt1": "Alt-클릭",
+    "smarttarget.settings.targetingMode.opt2": "항상 대상 지정 (플레이어만)",
+
+    "smarttarget.settings.portraitPips.name": "표시기에 색상 대신 포트레이트 표시",
+    "smarttarget.settings.portraitPips.hint": "GM은 아바타를 사용하며, 기본적으로 액터의 아바타를 찾을 수 없다면 플레이어의 토큰을 사용한다.(새로고침 필요)",
+
+    "smarttarget.settings.useToken.name": "아바타 대신 토큰을 사용",
+    "smarttarget.settings.useToken.hint": "플레이어들의 대상 지정 표시기에 아바타 대신 토큰을 사용한다",
+
+    "smarttarget.settings.useTokenGm.name": "Gm 이미지",
+    "smarttarget.settings.useTokenGm.hint": "GM의 포트레이트를 표시기의 이미지로 사용한다.",
+    "smarttarget.settings.useTokenGm.opt0": "플레이어 아바타",
+    "smarttarget.settings.useTokenGm.opt1": "토큰 포트레이트",
+    "smarttarget.settings.useTokenGm.opt2": "토큰 이미지",
+
+    "smarttarget.settings.insidePips.name": "토큰 내부에 대상 지정 표시기 유지",
+    "smarttarget.settings.insidePips.hint": "토큰 외곽 내부에 유지되는 방식으로 대상 지정 표시기를 이동한다.",
+
+    "smarttarget.settings.pipImgScale.name": "대상 지정 아이콘 이미지 크기 조정",
+    "smarttarget.settings.pipImgScale.hint": "대상 지정 아이콘에 사용될 이미지 크기 조정 설정(기본값: 1)",
+
+    "smarttarget.settings.pipOffsetManualY.name": "대상 지정 이미지 Y 오프센",
+    "smarttarget.settings.pipOffsetManualY.hint": "이미지에 픽셀 단위로 플랫 오프셋을 추가한다 (기본값: 0)",
+
+    "smarttarget.settings.pipOffsetManualX.name": "대상 지정 이미지 X 오프센",
+    "smarttarget.settings.pipOffsetManualX.hint": "이미지에 픽셀 단위로 플랫 오프셋을 추가한다 (기본값: 0)",
+
+    "smarttarget.settings.pipScale.name": "대상 지정 아이콘 크기",
+    "smarttarget.settings.pipScale.hint": "대상 지정 아이콘에 픽셀 단위의 크기 설정한다 (기본값: 12)",
+
+    "smarttarget.settings.pipOffset.name": "대상 지정 아이콘 오프센",
+    "smarttarget.settings.pipOffset.hint": "아이콘 사이의 거리를 픽셀 단위로 설정한다 (기본값: 16)",
+
+    "smarttarget.settings.borderThicc.name": "외곽 두께",
+    "smarttarget.settings.borderThicc.hint": "외곽의 두께를 픽셀 단위로 설정한다 (기본값: 2)",
+
+    "smarttarget.settings.crossairSpread.name": "대상 지정 화살표를 더 가까이 모음",
+    "smarttarget.settings.crossairSpread.hint": "대상 지정 화살표를 토큰 프레임 안에 있도록 가까이 모아놓는다.",
+
+    "smarttarget.settings.crossairColor.name": "대상 지정 화살표 색상",
+    "smarttarget.settings.crossairColor.hint": "대상 지정 화살표의 16진수 색상이다 (기본값: #ff9829)",
+
+    "smarttarget.settings.target-indicator.name" : "대상 지정 표시기",
+    "smarttarget.settings.target-indicator.hint" : "대상 지정 된 토큰에 대한 표시기를 선택한다",
+    "smarttarget.settings.target-indicator-choices-0" : "기본 파운드리 표시기",
+    "smarttarget.settings.target-indicator-choices-1" : "조준선 1",
+    "smarttarget.settings.target-indicator-choices-2" : "조준선 2",
+    "smarttarget.settings.target-indicator-choices-3" : "황소눈 1",
+    "smarttarget.settings.target-indicator-choices-4" : "황소눈 2",
+    "smarttarget.settings.target-indicator-choices-5" : "고급 대상 지정",
+
+    "smarttarget.settings.use-player-color.name" : "대상 지정 표시기에 플레이어 색상 사용",
+    "smarttarget.settings.use-player-color.hint" : "대상 지정 표시기에 플레이어 색상을 사용한다.",
+
+    "smarttarget.settings.customHotKeyTarget.name": "사용자 지정 단축키로 대상 지정",
+    "smarttarget.settings.customHotKeyTarget.hint": "사용자 지정 단축키를 눌러 토큰을 대상 지정, Shift로 여러 대상을 추가 지정한다.",
+
+    "smarttarget.settings.customHotKeyTargetMulti.name": "사용자 지정 단축키로 다중 대상 지정",
+    "smarttarget.settings.customHotKeyTargetMulti.hint": "사용자 지정 단축키를 눌러 다중 대상을 지정, Shift로 여러 대상을 추가 지정한다.",
+
+    "smarttarget.settings.releaseBehaviour.name": "지정 해제",
+	"smarttarget.settings.releaseBehaviour.hint": "이 설정은 여러 대상을 지정할 때 새로 선택하는 지를 결정한다. '접착' 모드는 새로 대상을 지정할 때마다 기본 대상 지정이 유지되며 다시 클릭해야 대상 지정이 해제된다. '보통' 모드는 파운드리 기본 방식에 가까워 새 토큰을 클릭할 때마다 기존 대상 지정이 해제되며, 여러 토큰을 대상 지정하려면 Shift 키를 누른 상태로 대상을 추가 지정해야 한다.",
+	"smarttarget.settings.releaseBehaviour.choice0.Standard": "보통",
+	"smarttarget.settings.releaseBehaviour.choice0.Sticky": "접착",
+
+    "smarttarget.warningNoSelectMoreThanOneToken": "대상으로 설정할 토큰을 선택하지 않았습니다.",
+    "smarttarget.controls.cleartargets.name": "모든 대상 지정 지우기",
+    
+    "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.name": "선택한 토큰 이미지를 표시기 포트레이트로 사용",
+    "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "선택한 토큰 이미지를 표시기 포트레이트로 사용한다",
+
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "토큰이 선택되지 않은 경우 자신 소유의 토큰을 사용 (GM에게는 무시됨)",
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "이 설정은 '선택한 토큰 이미지를 표시기 포트레이트로 사용' 설정과의 조합으로만 사용할 수 있다. (GM에게는 무시됨)"
+
+}
