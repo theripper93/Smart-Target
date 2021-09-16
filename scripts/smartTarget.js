@@ -65,12 +65,8 @@ class SmartTarget {
     if(!args[1]) return wrapped(...args);
     const mode = SmartTarget.settings().mode;
     const oe = args[1].data.originalEvent;
-    switch (mode) {
-      case 1:
-        if (oe.altKey) return true
-      case 2:
-        if (!game.user.isGM && !this.isOwner) return true
-    }
+    if(mode==1 && oe.altKey) return true;
+    if(mode==2 && !game.user.isGM && !this.isOwner) return true;
     return wrapped(...args);
   }
   /**
