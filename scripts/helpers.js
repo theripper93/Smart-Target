@@ -79,20 +79,24 @@ let size = token.w;
 if (size > token.h) {
   size = token.h;
 }
-const padding = 12;
-const stroke = 6;
+const padding = size / 8;
+const stroke = size / 16;
 const vmid = token.h / 2;
 const hmid = token.w / 2;
-const crossLen = (size / 2) - padding;
+const crossLen = (size / 2) - (padding * 1.5);
+// TODO: Remove this when core PIXI.js graphics-smooth version >= v0.0.17
+const smoothGraphicsHack = 0.999;
 token.target
+    .beginFill(0x000000, 0.0).lineStyle(stroke + 2, 0x000000)
+    .drawCircle(hmid, vmid, (size / 2) - padding - (stroke / 2))
+    .endFill()
+    .beginFill(0x000000, 0.0).lineStyle(stroke, fillColor)
+    .drawCircle(hmid, vmid, (size / 2) - padding - (stroke / 2))
+    .endFill()
     .beginFill(fillColor, 1.0).lineStyle(1, 0x000000)
-    .drawCircle(hmid, vmid, (size / 2) - padding)
-    .beginHole()
-    .drawCircle(hmid, vmid, (size / 2) - padding - stroke)
-    .endHole()
-    .drawRoundedRect(hmid - (stroke / 2), vmid - stroke - crossLen, stroke, crossLen, null)
-    .drawRoundedRect(hmid - (stroke / 2), vmid + padding - stroke, stroke, crossLen, null)
-    .drawRoundedRect(hmid - stroke - crossLen, vmid - (stroke / 2), crossLen, stroke, null)
-    .drawRoundedRect(hmid + padding - stroke, vmid - (stroke / 2), crossLen, stroke, null)
+    .drawRoundedRect(hmid - (stroke / 2), vmid - stroke - (padding / 2) - crossLen, stroke, crossLen, stroke / 2 * smoothGraphicsHack)
+    .drawRoundedRect(hmid - (stroke / 2), vmid + (padding * 1.5) - stroke, stroke, crossLen, stroke / 2 * smoothGraphicsHack)
+    .drawRoundedRect(hmid - stroke - (padding / 2) - crossLen, vmid - (stroke / 2), crossLen, stroke, stroke / 2 * smoothGraphicsHack)
+    .drawRoundedRect(hmid + (padding * 1.5) - stroke, vmid - (stroke / 2), crossLen, stroke, stroke / 2 * smoothGraphicsHack)
     .endFill();
 }
