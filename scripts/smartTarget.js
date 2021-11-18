@@ -139,7 +139,7 @@ class SmartTarget {
   // Draw custom crosshair and pips
   static async _refreshTarget() {
 
-    this.target.clear();
+    this.hud.target.clear();
     if (!this.targeted.size) return;
 
     // Determine whether the current user has target and any other users
@@ -205,12 +205,12 @@ class SmartTarget {
     // For other users, draw offset pips
     if (game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips")) {
       for (let [i, u] of others.entries()) {
-        SmartTarget.buildCharacterPortrait(u, i, this.target,this);
+        SmartTarget.buildCharacterPortrait(u, i, this.hud.target,this);
       }
     } else {
       for (let [i, u] of others.entries()) {
         let color = colorStringToHex(u.data.color);
-        this.target
+        this.hud.target
           .beginFill(color, 1.0)
           .lineStyle(2, 0x0000000)
           .drawCircle(2 + i * 8, 0, 6);
