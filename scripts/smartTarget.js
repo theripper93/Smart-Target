@@ -8,22 +8,21 @@ class SmartTarget {
 
   static _tokenOnClickLeft(wrapped, ...args) {
     const mode = SmartTarget.settings().mode;
-    const oe = args[0].data.originalEvent;
     switch (mode) {
       case 0:
         return wrapped(...args);
         break;
       case 1:
-        if (oe.altKey) {
-          SmartTarget.handleTargeting(this,oe.shiftKey);
+        if (keyboard.downKeys.has("ALT")) {
+          SmartTarget.handleTargeting(this,keyboard.downKeys.has("SHIFT"));
           return
         }else{
           return wrapped(...args);
         }
         break;
       case 2:
-        if ((!game.user.isGM && !this.isOwner) || (this.isOwner && oe.altKey)) {
-          SmartTarget.handleTargeting(this,oe.shiftKey);
+        if ((!game.user.isGM && !this.isOwner) || (this.isOwner && keyboard.downKeys.has("ALT"))) {
+          SmartTarget.handleTargeting(this,keyboard.downKeys.has("SHIFT"));
           return
         } else {
           return wrapped(...args);
@@ -34,9 +33,8 @@ class SmartTarget {
   }
 
   static canvasOnClickLeft(wrapped, ...args) {
-    const oe = args[0].data.originalEvent;
     const canvasMousePos = args[0].data.origin
-    if (oe.altKey){
+    if (keyboard.downKeys.has("ALT")){
       let distance = Infinity
       let closestTemplate = null
       for(let template of canvas.templates.placeables){
@@ -49,7 +47,7 @@ class SmartTarget {
         }
       }
       if(closestTemplate){
-        const release = oe.shiftKey ? !SmartTarget.settings().release : SmartTarget.settings().release;
+        const release = keyboard.downKeys.has("SHIFT") ? !SmartTarget.settings().release : SmartTarget.settings().release;
         if (release)canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
         for(let token of canvas.tokens.placeables){
           if(closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y)){
@@ -64,8 +62,7 @@ class SmartTarget {
   static _canControl(wrapped,...args){
     if(!args[1]) return wrapped(...args);
     const mode = SmartTarget.settings().mode;
-    const oe = args[1].data.originalEvent;
-    if(mode==1 && oe.altKey) return true;
+    if(mode==1 && keyboard.downKeys.has("ALT")) return true;
     if(mode==2 && !game.user.isGM && !this.isOwner) return true;
     return wrapped(...args);
   }
