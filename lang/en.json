@@ -6,7 +6,7 @@
     "smarttarget.settings.alwaysTarget.hint": "Clicking on non-owned tokens automatically targets them",
 
     "smarttarget.settings.targetingMode.name": "Targeting Mode",
-    "smarttarget.settings.targetingMode.hint": "Default: Default foundry behaviour. Alt-click: Target tokens by pressing Alt+Click, add Shift to target multiple. Always Target: Clicking on non-owned tokens automatically targets them",
+    "smarttarget.settings.targetingMode.hint": "Default: Default foundry behaviour. Alt-click: Target tokens by pressing Alt+Click, add Shift to target multiple. Always Target: Clicking on non-owned tokens automatically targets them. \n You can rebind the ALT key in Configure Controls",
 
     "smarttarget.settings.targetingMode.opt0": "Default",
     "smarttarget.settings.targetingMode.opt1": "Alt-Click",
@@ -81,6 +81,6 @@
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "Force to use selected tokens image for build the indicator portraits",
 
     "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "Use the owned tokens if no tokens is selected (Ignored if you are GM)",
-    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "This settings make sense only in combination with 'Force to use selected tokens image for build the indicator portraits' (Ignored if you are GM)"
-  
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "This settings make sense only in combination with 'Force to use selected tokens image for build the indicator portraits' (Ignored if you are GM)",
+    "smarttarget.keybindings.altkey": "Targeting Modifier"
 }

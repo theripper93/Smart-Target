@@ -1,7 +1,9 @@
 const SMARTTARGET_MODULE_NAME = "smarttarget";
 
 Hooks.on("init", () => {
-
+  game.smartTarget = {
+    altModifier : false,
+  };
   game.settings.register(SMARTTARGET_MODULE_NAME, "targetingMode", {
     name: game.i18n.localize("smarttarget.settings.targetingMode.name"),
     hint: game.i18n.localize("smarttarget.settings.targetingMode.hint"),
@@ -218,4 +220,17 @@ Hooks.on("init", () => {
         layer: 'TokenLayer'
     });
   },);
+
+
+  game.keybindings.register(SMARTTARGET_MODULE_NAME, "altKey", {
+    name: game.i18n.localize("smarttarget.keybindings.altkey"),
+    editable: [
+      {key: "ALT"}
+    ],
+    onDown: () => {game.smartTarget.altModifier = true;},
+    onUp: () => {game.smartTarget.altModifier = false;},
+});
+
+
+
 });

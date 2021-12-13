@@ -13,7 +13,7 @@ class SmartTarget {
         return wrapped(...args);
         break;
       case 1:
-        if (keyboard.downKeys.has("ALT")) {
+        if (game.smartTarget.altModifier) {
           SmartTarget.handleTargeting(this,keyboard.downKeys.has("SHIFT"));
           return
         }else{
@@ -21,7 +21,7 @@ class SmartTarget {
         }
         break;
       case 2:
-        if ((!game.user.isGM && !this.isOwner) || (this.isOwner && keyboard.downKeys.has("ALT"))) {
+        if ((!game.user.isGM && !this.isOwner) || (this.isOwner && game.smartTarget.altModifier)) {
           SmartTarget.handleTargeting(this,keyboard.downKeys.has("SHIFT"));
           return
         } else {
@@ -34,7 +34,7 @@ class SmartTarget {
 
   static canvasOnClickLeft(wrapped, ...args) {
     const canvasMousePos = args[0].data.origin
-    if (keyboard.downKeys.has("ALT")){
+    if (game.smartTarget.altModifier){
       let distance = Infinity
       let closestTemplate = null
       for(let template of canvas.templates.placeables){
@@ -62,7 +62,7 @@ class SmartTarget {
   static _canControl(wrapped,...args){
     if(!args[1]) return wrapped(...args);
     const mode = SmartTarget.settings().mode;
-    if(mode==1 && keyboard.downKeys.has("ALT")) return true;
+    if(mode==1 && game.smartTarget.altModifier) return true;
     if(mode==2 && !game.user.isGM && !this.isOwner) return true;
     return wrapped(...args);
   }
