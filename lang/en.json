@@ -83,6 +83,7 @@
     "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "Use the owned tokens if no tokens is selected (Ignored if you are GM)",
     "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "This settings make sense only in combination with 'Force to use selected tokens image for build the indicator portraits' (Ignored if you are GM)",
     "smarttarget.keybindings.altkey": "Targeting Modifier",
+    "smarttarget.keybindings.clearAllTargets": "Clear All Targets",
 
     "smarttarget.settings.pipPosition.name": "Target Indicator Position",
     "smarttarget.settings.pipPosition.hint": "Set the position for the target indicator",

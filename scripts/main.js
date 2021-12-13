@@ -249,6 +249,13 @@ Hooks.on("init", () => {
     onUp: () => {game.smartTarget.altModifier = false;},
 });
 
+game.keybindings.register(SMARTTARGET_MODULE_NAME, "clearAllTargets", {
+  name: game.i18n.localize("smarttarget.keybindings.clearAllTargets"),
+  editable: [
+    {key: "C", modifiers: [ "ALT" ]}
+  ],
+  onDown: () => {canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });},
+});
 
 
 });
