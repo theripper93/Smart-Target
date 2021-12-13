@@ -68,7 +68,6 @@ class SmartTarget {
   }
 
   static getOffset(token, length) {
-    debugger;
     const width = token.w;
     const height = token.h;
     const position = game.settings.get(SMARTTARGET_MODULE_NAME, "pipPosition")
