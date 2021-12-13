@@ -66,13 +66,55 @@ class SmartTarget {
     if(mode==2 && !game.user.isGM && !this.isOwner) return true;
     return wrapped(...args);
   }
+
+  static getOffset(token, length) {
+    debugger;
+    const width = token.w;
+    const height = token.h;
+    const position = game.settings.get(SMARTTARGET_MODULE_NAME, "pipPosition")
+    const circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
+    let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
+    let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, "insidePips") ? circleR : 0;
+    const totalHeight = circleR*2;
+    const totalWidth = (circleR*2)*length - circleOffsetMult*(length-1);
+    const offset = {
+      x: 0,
+      y: 0,
+    };
+    switch (position) {
+      case "topleft":
+        break;
+      case "topright":
+        offset.x = width - totalWidth;
+        break;
+      case "bottomleft":
+        offset.y = height - totalHeight;
+        break;
+      case "bottomright":
+        offset.x = width - totalWidth;
+        offset.y = height - totalHeight;
+        break;
+      case "centertop":
+        offset.x = (width - totalWidth) / 2;
+        break;
+      case "centerbottom":
+        offset.x = (width - totalWidth) / 2;
+        offset.y = height - totalHeight;
+        break;
+      case "random":
+        offset.x = Math.floor(Math.random() * (width - totalWidth));
+        offset.y = Math.floor(Math.random() * (height - totalHeight));
+        break;
+    }
+    return offset;
+  }
   /**
    * Creates a sprite from the selected avatar and positions around the container
    * @param {User} u -- the user to get
    * @param {int} i  -- the current row count
    * @param {token} target -- PIXI.js container for height & width (the token)
    */
-  static async buildCharacterPortrait(u, i, target, token) {
+  static async buildCharacterPortrait(u, i, target, token, totalOffset) {
     let color = colorStringToHex(u.data.color);
     let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
     let circleOffsetMult =
@@ -115,22 +157,22 @@ class SmartTarget {
       0,
       0,
       (scaleMulti * (2 * circleR + 2)) / texture.height,
-      newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset + insidePip,
-      newTexH / 2 + portraitCenterOffset + insidePip
+      newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset + insidePip + totalOffset.x,
+      newTexH / 2 + portraitCenterOffset + insidePip + totalOffset.y
     );
     target
       .beginFill(color)
-      .drawCircle(2 + i * circleOffsetMult + insidePip, 0 + insidePip, circleR)
+      .drawCircle(2 + i * circleOffsetMult + insidePip + totalOffset.x, 0 + insidePip + totalOffset.y, circleR)
       .beginTextureFill({
         texture: texture,
         alpha: 1,
         matrix: matrix,
       })
       .lineStyle(borderThic, 0x0000000)
-      .drawCircle(2 + i * circleOffsetMult + insidePip, 0 + insidePip, circleR)
+      .drawCircle(2 + i * circleOffsetMult + insidePip + totalOffset.x, 0 + insidePip + totalOffset.y, circleR)
       .endFill()
       .lineStyle(borderThic / 2, color)
-      .drawCircle(2 + i * circleOffsetMult + insidePip, 0 + insidePip, circleR);
+      .drawCircle(2 + i * circleOffsetMult + insidePip + totalOffset.x, 0 + insidePip + totalOffset.y, circleR);
   }
 
   // Draw custom crosshair and pips
@@ -202,7 +244,8 @@ class SmartTarget {
     // For other users, draw offset pips
     if (game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips")) {
       for (let [i, u] of others.entries()) {
-        SmartTarget.buildCharacterPortrait(u, i, this.hud.target,this);
+        const offset = SmartTarget.getOffset(this, others.length);
+        SmartTarget.buildCharacterPortrait(u, i, this.hud.target,this, offset);
       }
     } else {
       for (let [i, u] of others.entries()) {

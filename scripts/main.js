@@ -63,6 +63,24 @@ Hooks.on("init", () => {
     },
   });
 
+  game.settings.register(SMARTTARGET_MODULE_NAME, "pipPosition", {
+    name: game.i18n.localize("smarttarget.settings.pipPosition.name"),
+    hint: game.i18n.localize("smarttarget.settings.pipPosition.hint"),
+    scope: "world",
+    config: true,
+    default: "topleft",
+    type: String,
+    choices: {
+      "topleft": game.i18n.localize("smarttarget.settings.pipPosition.topleft"),
+      "topright": game.i18n.localize("smarttarget.settings.pipPosition.topright"),
+      "bottomleft": game.i18n.localize("smarttarget.settings.pipPosition.bottomleft"),
+      "bottomright": game.i18n.localize("smarttarget.settings.pipPosition.bottomright"),
+      "centertop": game.i18n.localize("smarttarget.settings.pipPosition.centertop"),
+      "centerbottom": game.i18n.localize("smarttarget.settings.pipPosition.centerbottom"),
+      "random": game.i18n.localize("smarttarget.settings.pipPosition.random"),
+    },
+  });
+
   game.settings.register(SMARTTARGET_MODULE_NAME, "insidePips", {
     name: game.i18n.localize("smarttarget.settings.insidePips.name"),
     hint: game.i18n.localize("smarttarget.settings.insidePips.hint"),
