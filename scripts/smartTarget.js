@@ -14,7 +14,7 @@ class SmartTarget {
         break;
       case 1:
         if (game.smartTarget.altModifier) {
-          SmartTarget.handleTargeting(this,keyboard.downKeys.has("SHIFT"));
+          SmartTarget.handleTargeting(this,game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT));
           return
         }else{
           return wrapped(...args);
@@ -22,7 +22,7 @@ class SmartTarget {
         break;
       case 2:
         if ((!game.user.isGM && !this.isOwner) || (this.isOwner && game.smartTarget.altModifier)) {
-          SmartTarget.handleTargeting(this,keyboard.downKeys.has("SHIFT"));
+          SmartTarget.handleTargeting(this,game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT));
           return
         } else {
           return wrapped(...args);
@@ -47,7 +47,7 @@ class SmartTarget {
         }
       }
       if(closestTemplate){
-        const release = keyboard.downKeys.has("SHIFT") ? !SmartTarget.settings().release : SmartTarget.settings().release;
+        const release = game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !SmartTarget.settings().release : SmartTarget.settings().release;
         if (release)canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
         for(let token of canvas.tokens.placeables){
           if(closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y)){

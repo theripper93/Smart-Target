@@ -239,11 +239,12 @@ Hooks.on("init", () => {
     });
   },);
 
-
+  const {SHIFT, CONTROL, ALT} = KeyboardManager.MODIFIER_KEYS;
   game.keybindings.register(SMARTTARGET_MODULE_NAME, "altKey", {
     name: game.i18n.localize("smarttarget.keybindings.altkey"),
     editable: [
-      {key: "ALT"}
+      {key: "AltLeft"},
+      {key: "AltRight"},
     ],
     onDown: () => {game.smartTarget.altModifier = true;},
     onUp: () => {game.smartTarget.altModifier = false;},
@@ -252,10 +253,11 @@ Hooks.on("init", () => {
 game.keybindings.register(SMARTTARGET_MODULE_NAME, "clearAllTargets", {
   name: game.i18n.localize("smarttarget.keybindings.clearAllTargets"),
   editable: [
-    {key: "C", modifiers: [ "ALT" ]}
+    {key: "KeyC", modifiers: [ ALT ]}
   ],
   onDown: () => {canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });},
 });
 
 
 });
+
