@@ -84,6 +84,18 @@
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "Forzar el uso de la imagen de los iconos seleccionados como objetivo para crear los indicadores-retrato",
 
     "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "Usar los iconos que posee si no se selecciona ningún icono (este ajuste se ignorará para el GM)",
-    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "Este ajuste solo tiene sentido si se combina con 'Forzar el uso de la imagen de los iconos seleccionados como objetivo' (este ajuste se ignorará para el GM)"
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "Este ajuste solo tiene sentido si se combina con 'Forzar el uso de la imagen de los iconos seleccionados como objetivo' (este ajuste se ignorará para el GM)",
+    "smarttarget.keybindings.altkey": "Modificador al objetivo",
+    "smarttarget.keybindings.clearAllTargets": "Limpiar objetivos",
+
+    "smarttarget.settings.pipPosition.name": "Posición del indicador de objetivo",
+    "smarttarget.settings.pipPosition.hint": "Ajusta la posición del indicador de objetivo",
+    "smarttarget.settings.pipPosition.topleft": "Arriba izquierda",
+    "smarttarget.settings.pipPosition.topright": "Arriba derecha",
+    "smarttarget.settings.pipPosition.bottomleft": "Abajo izquierda",
+    "smarttarget.settings.pipPosition.bottomright": "Abajo derecha",
+    "smarttarget.settings.pipPosition.centertop": "Arriba centro",
+    "smarttarget.settings.pipPosition.centerbottom": "Abajo centro",
+    "smarttarget.settings.pipPosition.random": "Aleatorio"
   
 }
