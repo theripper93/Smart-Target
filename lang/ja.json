@@ -5,11 +5,21 @@
     "smarttarget.settings.alwaysTarget.name": "常にターゲットとして選択する",
     "smarttarget.settings.alwaysTarget.hint": "所有していないコマをクリックすると、ターゲットとして選択されるようになります。",
 
+    "smarttarget.settings.targetingMode.name": "ターゲット・モード",
+    "smarttarget.settings.targetingMode.hint": "既定：FVTTの既定の操作です。Altクリック：Alt+クリックでコマをターゲットします、Shiftで複数体選択します。常にターゲット：所持していないコマにクリックすると常にターゲットされます。\nALTキーはショートカット設定で変更できます。",
+
+    "smarttarget.settings.targetingMode.opt0": "既定",
+    "smarttarget.settings.targetingMode.opt1": "Altクリック",
+    "smarttarget.settings.targetingMode.opt2": "常にターゲット（PLのみ）",
+
     "smarttarget.settings.portraitPips.name": "インジケータに色でなくポートレートを使用する",
     "smarttarget.settings.portraitPips.hint": "ターゲット・インジケータにプレイヤー（またはGM）のアバター画像を使用します。未設定の場合はコマ画像が使用されます（要再読込）。",
 
     "smarttarget.settings.useToken.name": "アバターでなくコマ画像を使用する",
     "smarttarget.settings.useToken.hint": "プレイヤーのターゲット・インジケータに、アバターではなくコマ画像を使用します。",
+
+    "smarttarget.settings.useTokenGm.name": "GM画像",
+    "smarttarget.settings.useTokenGm.hint": "GMのインジケータに使用する画像",
 
     "smarttarget.settings.insidePips.name": "インジケータをコマの枠内に収める",
     "smarttarget.settings.insidePips.hint": "ターゲット・インジケータをコマの枠内に収まるように移動します。",
@@ -19,6 +29,9 @@
 
     "smarttarget.settings.pipOffsetManualY.name": "インジケータ画像のY軸オフセット",
     "smarttarget.settings.pipOffsetManualY.hint": "画像に加える垂直方向のオフセット値をピクセル単位で指定します（デフォルト：0）。",
+    "smarttarget.settings.useTokenGm.opt0": "PL画像",
+    "smarttarget.settings.useTokenGm.opt1": "キャラ画像",
+    "smarttarget.settings.useTokenGm.opt2": "コマ画像",
 
     "smarttarget.settings.pipOffsetManualX.name": "インジケータ画像のX軸オフセット",
     "smarttarget.settings.pipOffsetManualX.hint": "画像に加える水平方向のオフセット値をピクセル単位で指定します（デフォルト：0）。",
@@ -37,6 +50,7 @@
 
     "smarttarget.settings.crossairColor.name": "ターゲット・マークの色",
     "smarttarget.settings.crossairColor.hint": "ターゲット・アローの色を16進数カラーコードで指定します（デフォルト：#ff9829）",
+    
 
     "smarttarget.settings.target-indicator.name" : "ターゲット・マーク",
     "smarttarget.settings.target-indicator.hint" : "ターゲットしたコマに表示するマークを選択します。",
@@ -67,6 +81,18 @@
     "smarttarget.settings.forceToUseSelectedTokenForPortraitPips.hint": "ターゲット・インジケータの画像に、選択コマの画像が強制的に使用されるようになります。",
 
     "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.name": "コマ未選択時は所有者権限を持つコマの画像を使用する（GMを除く）",
-    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "この設定は「インジケータに強制的にコマ画像を使用する」との組み合わせで機能します。"
+    "smarttarget.settings.useOwnedTokenIfNoTokenIsSelected.hint": "この設定は「インジケータに強制的にコマ画像を使用する」との組み合わせで機能します。",
+    "smarttarget.keybindings.altkey": "組み合わせキー",
+    "smarttarget.keybindings.clearAllTargets": "ターゲット全クリア",
+
+    "smarttarget.settings.pipPosition.name": "ターゲット・インジケータ位置",
+    "smarttarget.settings.pipPosition.hint": "ターゲット・インジケータの位置を設定します。",
+    "smarttarget.settings.pipPosition.topleft": "左上",
+    "smarttarget.settings.pipPosition.topright": "右上",
+    "smarttarget.settings.pipPosition.bottomleft": "左下",
+    "smarttarget.settings.pipPosition.bottomright": "右下",
+    "smarttarget.settings.pipPosition.centertop": "中央上",
+    "smarttarget.settings.pipPosition.centerbottom": "中央下",
+    "smarttarget.settings.pipPosition.random": "ランダム"
   
 }
