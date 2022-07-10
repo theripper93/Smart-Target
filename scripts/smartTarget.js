@@ -175,9 +175,8 @@ class SmartTarget {
   }
 
   // Draw custom crosshair and pips
-  static async _refreshTarget() {
-
-    this.hud.target.clear();
+  static async _refreshTarget(reticule) {
+    this.target.clear();
     if (!this.targeted.size) return;
 
     // Determine whether the current user has target and any other users
@@ -195,15 +194,13 @@ class SmartTarget {
         ? game.settings
             .get(SMARTTARGET_MODULE_NAME, "crossairColor")
             .replace("#", "0x")
-        : 0xff9829;
+        : this._getBorderColor({hover: true});
 
       if (game.settings.get(SMARTTARGET_MODULE_NAME, "use-player-color")) {
         textColor = colorStringToHex(game.user["color"]);
       }
 
-      let p = game.settings.get(SMARTTARGET_MODULE_NAME, "crossairSpread")
-        ? -10
-        : 4;
+      let p = 4;
       let aw = 12;
       let h = this.h;
       let hh = h / 2;
@@ -217,7 +214,8 @@ class SmartTarget {
       );
       switch (selectedIndicator) {
         case "0":
-          drawDefault(this, textColor, p, aw, h, hh, w, hw, ah);
+          reticule.color = textColor;
+          this._drawTarget(reticule)//{color: textColor})//drawDefault(this, textColor, p, aw, h, hh, w, hw, ah);
           break;
         case "1":
           drawCrossHairs1(this, textColor, p, aw, h, hh, w, hw, ah);
@@ -244,12 +242,12 @@ class SmartTarget {
     if (game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips")) {
       for (let [i, u] of others.entries()) {
         const offset = SmartTarget.getOffset(this, others.length);
-        SmartTarget.buildCharacterPortrait(u, i, this.hud.target,this, offset);
+        SmartTarget.buildCharacterPortrait(u, i, this.target,this, offset);
       }
     } else {
       for (let [i, u] of others.entries()) {
         let color = colorStringToHex(u.data.color);
-        this.hud.target
+        this.target
           .beginFill(color, 1.0)
           .lineStyle(2, 0x0000000)
           .drawCircle(2 + i * 8, 0, 6);

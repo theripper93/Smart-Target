@@ -49,7 +49,7 @@
     "smarttarget.settings.crossairSpread.hint": "Bring the targeting arrows closer together so that they are inside the token frame (works only with default targeting arrows)",
 
     "smarttarget.settings.crossairColor.name": "Targeting Arrows Color",
-    "smarttarget.settings.crossairColor.hint": "Hex color for the targeting arrows (default: #ff9829)",
+    "smarttarget.settings.crossairColor.hint": "Hex color for the targeting arrows (default: #ff9829). Leave blank for disposition based color",
 
     "smarttarget.settings.target-indicator.name" : "Target indicator",
     "smarttarget.settings.target-indicator.hint" : "Select the indicator for a targeted token",

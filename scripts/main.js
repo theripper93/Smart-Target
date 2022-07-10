@@ -174,22 +174,13 @@ Hooks.on("init", () => {
     default: 2,
   });
 
-  game.settings.register(SMARTTARGET_MODULE_NAME, "crossairSpread", {
-    name: game.i18n.localize("smarttarget.settings.crossairSpread.name"),
-    hint: game.i18n.localize("smarttarget.settings.crossairSpread.hint"),
-    scope: "client",
-    config: true,
-    default: false,
-    type: Boolean,
-  });
-
   game.settings.register(SMARTTARGET_MODULE_NAME, "crossairColor", {
     name: game.i18n.localize("smarttarget.settings.crossairColor.name"),
     hint: game.i18n.localize("smarttarget.settings.crossairColor.hint"),
     scope: "client",
     config: true,
     type: String,
-    default: "#ff9829",
+    default: "",
   });
 
   game.settings.register(SMARTTARGET_MODULE_NAME, "target-indicator", {
