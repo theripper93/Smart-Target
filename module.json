@@ -55,5 +55,8 @@
   "compatibility": {
     "minimum": "10",
     "verified": "10"
-  }
+  },
+
+  "name": "smarttarget",
+  "minimumCoreVersion": "10"
 }
