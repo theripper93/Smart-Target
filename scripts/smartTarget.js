@@ -175,7 +175,7 @@ class SmartTarget {
   }
 
   // Draw custom crosshair and pips
-  static async _refreshTarget(reticule) {
+  static async _refreshTarget(reticule = {}) {
     this.target.clear();
     if (!this.targeted.size) return;
 
