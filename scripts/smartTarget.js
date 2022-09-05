@@ -114,7 +114,7 @@ class SmartTarget {
    * @param {token} target -- PIXI.js container for height & width (the token)
    */
   static async buildCharacterPortrait(u, i, target, token, totalOffset) {
-    let color = colorStringToHex(u.data.color);
+    let color = Color.from(u.data.color);
     let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
     let circleOffsetMult =
       game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
@@ -197,7 +197,7 @@ class SmartTarget {
         : this._getBorderColor({hover: true});
 
       if (game.settings.get(SMARTTARGET_MODULE_NAME, "use-player-color")) {
-        textColor = colorStringToHex(game.user["color"]);
+        textColor = Color.from(game.user["color"]);
       }
 
       let p = 4;
@@ -246,7 +246,7 @@ class SmartTarget {
       }
     } else {
       for (let [i, u] of others.entries()) {
-        let color = colorStringToHex(u.data.color);
+        let color = Color.from(u.data.color);
         this.target
           .beginFill(color, 1.0)
           .lineStyle(2, 0x0000000)
