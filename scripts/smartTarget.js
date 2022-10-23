@@ -114,7 +114,7 @@ class SmartTarget {
    * @param {token} target -- PIXI.js container for height & width (the token)
    */
   static async buildCharacterPortrait(u, i, target, token, totalOffset) {
-    let color = Color.from(u.data.color);
+    let color = Color.from(u.color);
     let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
     let circleOffsetMult =
       game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
@@ -131,8 +131,8 @@ class SmartTarget {
       }
       if (character) {
         pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken")
-          ? character.data.token.img || character.data.img
-          : character.data.img || character.data.token.img;
+          ? character.prototypeToken.img || character.img
+          : character.img || character.prototypeToken.img;
       } else {
         pTex = u.data.avatar;
       }
@@ -269,8 +269,8 @@ Hooks.on("targetToken", (user,token,targeted) =>{
   if(!game.user.isGM || !targeted || !gmTexSetting) return
 
   let flag
-      if(gmTexSetting == 1) flag = _token?.actor?.data.img || _token?.data.img
-      if(gmTexSetting == 2) flag = _token?.data.img || _token?.actor?.data.img 
+      if(gmTexSetting == 1) flag = _token?.actor?.img || _token?.img
+      if(gmTexSetting == 2) flag = _token?.img || _token?.actor?.img 
       flag && flag != token.document.getFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg") && token.document.setFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg",flag)
 
 })
