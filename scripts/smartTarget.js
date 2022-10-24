@@ -70,8 +70,11 @@ class SmartTarget {
   static getOffset(token, length) {
     const width = token.w;
     const height = token.h;
+    const gridwidth = token.document.width;
+    const gridheight = token.document.height;
     const position = game.settings.get(SMARTTARGET_MODULE_NAME, "pipPosition")
-    const circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
+    let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
+	circleR = circleR * ((gridwidth + gridheight) /2);
     let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
     let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, "insidePips") ? circleR : 0;
     const totalHeight = circleR*2;
@@ -114,8 +117,11 @@ class SmartTarget {
    * @param {token} target -- PIXI.js container for height & width (the token)
    */
   static async buildCharacterPortrait(u, i, target, token, totalOffset) {
+    const gridwidth = token.document.width;
+    const gridheight = token.document.height;
     let color = Color.from(u.color);
     let circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
+	circleR = circleR * ((gridwidth + gridheight) /2);
     let circleOffsetMult =
       game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
     let scaleMulti =
@@ -214,7 +220,14 @@ class SmartTarget {
       );
       switch (selectedIndicator) {
         case "0":
+          const gridwidth = this.document.width;
+          const gridheight = this.document.height;
+		  let sizemulti = ((gridwidth + gridheight) / 1.5);
+		  if (sizemulti < 1 ) {
+			  sizemulti = 1;
+		  }			  
           reticule.color = textColor;
+          reticule.size = reticule.size * sizemulti;
           this._drawTarget(reticule)//{color: textColor})//drawDefault(this, textColor, p, aw, h, hh, w, hw, ah);
           break;
         case "1":
