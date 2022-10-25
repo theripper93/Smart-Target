@@ -145,7 +145,7 @@ class SmartTarget {
     let texture = u.isGM
       ? new PIXI.Texture.from(gmTexture)
       : new PIXI.Texture.from(pTex);
-    texture.on("update", redraw);
+    if (!texture.baseTexture.valid) texture.once("update", redraw);
     let newTexW = scaleMulti * (2 * circleR);
     let newTexH = scaleMulti * (2 * circleR);
     let borderThic = game.settings.get(SMARTTARGET_MODULE_NAME, "borderThicc");
