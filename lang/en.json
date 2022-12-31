@@ -93,6 +93,9 @@
     "smarttarget.settings.pipPosition.bottomright": "Bottom Right",
     "smarttarget.settings.pipPosition.centertop": "Center Top",
     "smarttarget.settings.pipPosition.centerbottom": "Center Bottom",
-    "smarttarget.settings.pipPosition.random": "Random"
+    "smarttarget.settings.pipPosition.random": "Random",
+
+    "smarttarget.settings.disableClearAllTargetsButton.name" : "Disable 'Clear All Targets' button",
+    "smarttarget.settings.disableClearAllTargetsButton.hint" : "Toogle show/hide for 'clear all targets' button, for anyone want to save some space in left bar and for those using another method of clear targets."
 
 }

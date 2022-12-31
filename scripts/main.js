@@ -209,25 +209,35 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
+  game.settings.register(SMARTTARGET_MODULE_NAME, "disableClearAllTargetsButton", {
+    name: game.i18n.localize("smarttarget.settings.disableClearAllTargetsButton.name"),
+    hint: game.i18n.localize("smarttarget.settings.disableClearAllTargetsButton.hint"),
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
+
   libWrapper.register(SMARTTARGET_MODULE_NAME,"Token.prototype._refreshTarget", SmartTarget._refreshTarget, "OVERRIDE");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._onClickLeft", SmartTarget._tokenOnClickLeft, "MIXED");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Canvas.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._canControl", SmartTarget._canControl, "MIXED");
   
   Hooks.on("getSceneControlButtons", function(controls) {
+    if(!game.settings.get(SMARTTARGET_MODULE_NAME,"disableClearAllTargetsButton")) {
+      let control = controls.find(c => c.name === 'token') || controls[0];
 
-    let control = controls.find(c => c.name === 'token') || controls[0];
-
-    control.tools.push({
-        name: 'clearTargets',
-        title: game.i18n.localize("smarttarget.controls.cleartargets.name"),
-        icon:'fa fa-times-circle',
-        button:true,
-        onClick: () => {
-          canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
-        },
-        layer: 'TokenLayer'
-    });
+      control.tools.push({
+          name: 'clearTargets',
+          title: game.i18n.localize("smarttarget.controls.cleartargets.name"),
+          icon:'fa fa-times-circle',
+          button:true,
+          onClick: () => {
+            canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
+          },
+          layer: 'TokenLayer'
+      });
+    }
   },);
 
   const {SHIFT, CONTROL, ALT} = KeyboardManager.MODIFIER_KEYS;
