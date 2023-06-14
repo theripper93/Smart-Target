@@ -48,7 +48,7 @@ class SmartTarget {
   }
 
   static canvasOnClickLeft(wrapped, ...args) {
-    const canvasMousePos = args[0].data.origin
+    const canvasMousePos = args[0].interactionData.origin
     if (game.smartTarget.altModifier){
       let distance = Infinity
       let closestTemplate = null
