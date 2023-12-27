@@ -194,10 +194,19 @@ class SmartTarget {
   }
 
   // Draw custom crosshair and pips
-  static async _refreshTarget(reticule = {}) {
+  static async _refreshTarget(wrapped, ...args) {
+    const usePips = game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips");
+    const selectedIndicator = game.settings.get(SMARTTARGET_MODULE_NAME, "target-indicator");
+
+    if(!usePips && selectedIndicator == "0") return wrapped(...args);
+    
     if (!this.target) return;
+    let reticule = args[0] ?? {};
     this.target.clear();
-    if (!this.targeted.size) return;
+
+    // We don't show the target arrows for a secret token disposition and non-GM users
+    const isSecret = this.document.disposition === CONST.TOKEN_DISPOSITIONS.SECRET && !this.isOwner;
+    if (!this.targeted.size || isSecret) return;
 
     // Determine whether the current user has target and any other users
     const [others, user] = Array.from(this.targeted).partition(
@@ -228,10 +237,6 @@ class SmartTarget {
       let hw = w / 2;
       let ah = canvas.dimensions.size / 3;
 
-      let selectedIndicator = game.settings.get(
-        SMARTTARGET_MODULE_NAME,
-        "target-indicator"
-      );
       switch (selectedIndicator) {
         case "0":
           reticule.color = textColor;
@@ -259,19 +264,19 @@ class SmartTarget {
     }
 
     // For other users, draw offset pips
-    if (game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips")) {
+    if (usePips) {
       for (let [i, u] of others.entries()) {
         const offset = SmartTarget.getOffset(this, others.length);
         SmartTarget.buildCharacterPortrait(u, i, this.target,this, offset);
       }
     } else {
-      for (let [i, u] of others.entries()) {
-        let color = Color.from(u.color);
-        this.target
-          .beginFill(color, 1.0)
-          .lineStyle(2, 0x0000000)
-          .drawCircle(2 + i * 8, 0, 6);
-      }
+        const hw2 = this.w / 2 + (others.length % 2 === 0 ? 8 : 0);
+        for (let [i, u] of others.entries()) {
+            const offset = Math.floor((i + 1) / 2) * 16;
+            const sign = i % 2 === 0 ? 1 : -1;
+            const x = hw2 + sign * offset;
+            this.target.beginFill(Color.from(u.color), 1.0).lineStyle(2, 0x0000000).drawCircle(x, 0, 6);
+        }
     }
   }
 

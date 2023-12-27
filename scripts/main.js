@@ -209,7 +209,7 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  libWrapper.register(SMARTTARGET_MODULE_NAME,"Token.prototype._refreshTarget", SmartTarget._refreshTarget, "OVERRIDE");
+  libWrapper.register(SMARTTARGET_MODULE_NAME,"Token.prototype._refreshTarget", SmartTarget._refreshTarget, "MIXED");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._onClickLeft", SmartTarget._tokenOnClickLeft, "MIXED");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Canvas.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._canControl", SmartTarget._canControl, "MIXED");

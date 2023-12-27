@@ -13,7 +13,7 @@
     "smarttarget.settings.targetingMode.opt2": "Always Target (Player Only)",
 
     "smarttarget.settings.portraitPips.name": "Show indicator portraits instead of colors",
-    "smarttarget.settings.portraitPips.hint": "Uses avatar for GM, defaults to Token for players if no avatar is found for the assigned actor (requires refresh)",
+    "smarttarget.settings.portraitPips.hint": "Uses avatar for GM, defaults to Token for players if no avatar is found for the assigned actor (requires refresh). Note that all the indicator settings are for the image indicators only!",
 
     "smarttarget.settings.useToken.name": "Use Tokens instead of Avatars",
     "smarttarget.settings.useToken.hint": "Use tokens instead of avatars for players target indicators",
@@ -86,7 +86,7 @@
     "smarttarget.keybindings.clearAllTargets": "Clear All Targets",
 
     "smarttarget.settings.pipPosition.name": "Target Indicator Position",
-    "smarttarget.settings.pipPosition.hint": "Set the position for the target indicator",
+    "smarttarget.settings.pipPosition.hint": "Set the position for the target indicator (indicator portraits only)",
     "smarttarget.settings.pipPosition.topleft": "Top Left",
     "smarttarget.settings.pipPosition.topright": "Top Right",
     "smarttarget.settings.pipPosition.bottomleft": "Bottom Left",
