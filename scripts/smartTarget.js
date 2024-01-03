@@ -299,3 +299,9 @@ Hooks.on("targetToken", (user,token,targeted) =>{
       flag && flag != token.document.getFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg") && token.document.setFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg",flag)
 
 })
+
+Hooks.on("updateToken", (token, update) => {
+  if (update?.flags?.[SMARTTARGET_MODULE_NAME]?.gmtargetimg) {
+    token.object._refreshTarget()
+  }
+});
