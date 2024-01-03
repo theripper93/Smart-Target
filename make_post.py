@@ -7,11 +7,12 @@ def get_git_repo_info():
     try:
         # Get the remote URL of the Git repository
         remote_url = subprocess.check_output(['git', 'config', '--get', 'remote.origin.url']).decode('utf-8').strip()
-
+        print(f"Remote URL: {remote_url}")
         # Extract the repository owner and name from the remote URL
         repo_owner, repo_name = remote_url.split('/')[-2:]
-        repo_name = repo_name.rstrip('.git')
-
+        print(f"Repository Name: {repo_name}")
+        repo_name = repo_name.split('.')[0]
+        print(f"Repository Owner: {repo_owner}")
         return repo_owner, repo_name
     except subprocess.CalledProcessError:
         print("Error: Not a Git repository or Git not installed.")
