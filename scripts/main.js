@@ -29,7 +29,16 @@ Hooks.on("init", () => {
 			0: game.i18n.localize("smarttarget.settings.releaseBehaviour.choice0.Standard"),
 			1: game.i18n.localize("smarttarget.settings.releaseBehaviour.choice0.Sticky")
 		}
-	});
+  });
+  
+  game.settings.register(SMARTTARGET_MODULE_NAME, "templateTargeting", {
+    name: game.i18n.localize("smarttarget.settings.templateTargeting.name"),
+    hint: game.i18n.localize("smarttarget.settings.templateTargeting.hint"),
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
+  });
 
   game.settings.register(SMARTTARGET_MODULE_NAME, "portraitPips", {
     name: game.i18n.localize("smarttarget.settings.portraitPips.name"),

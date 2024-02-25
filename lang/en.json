@@ -93,6 +93,9 @@
     "smarttarget.settings.pipPosition.bottomright": "Bottom Right",
     "smarttarget.settings.pipPosition.centertop": "Center Top",
     "smarttarget.settings.pipPosition.centerbottom": "Center Bottom",
-    "smarttarget.settings.pipPosition.random": "Random"
+    "smarttarget.settings.pipPosition.random": "Random",
+
+    "smarttarget.settings.templateTargeting.name": "Template Targeting",
+    "smarttarget.settings.templateTargeting.hint": "When pressing Alt + Click on a measured template, target all tokens within the template area"
 
 }

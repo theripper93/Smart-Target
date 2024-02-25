@@ -49,7 +49,7 @@ class SmartTarget {
 
   static canvasOnClickLeft(wrapped, ...args) {
     const canvasMousePos = args[0].interactionData.origin
-    if (game.smartTarget.altModifier){
+    if (game.smartTarget.altModifier && !canvas.tokens.hover && game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")){
       let distance = Infinity
       let closestTemplate = null
       for(let template of canvas.templates.placeables){
