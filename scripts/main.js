@@ -220,7 +220,7 @@ Hooks.on("init", () => {
 
   libWrapper.register(SMARTTARGET_MODULE_NAME,"Token.prototype._refreshTarget", SmartTarget._refreshTarget, "MIXED");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._onClickLeft", SmartTarget._tokenOnClickLeft, "MIXED");
-  libWrapper.register(SMARTTARGET_MODULE_NAME, "Canvas.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "TokenLayer.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
   libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._canControl", SmartTarget._canControl, "MIXED");
   
   Hooks.on("getSceneControlButtons", function(controls) {

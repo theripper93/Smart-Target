@@ -23,6 +23,7 @@ class SmartTarget {
 
   static _tokenOnClickLeft(wrapped, ...args) {
     const mode = SmartTarget.settings().mode;
+    const event = args[0];
     switch (mode) {
       case 0:
         return wrapped(...args);
@@ -30,7 +31,7 @@ class SmartTarget {
       case 1:
         if (game.smartTarget.altModifier) {
           SmartTarget.handleTargeting(this,game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT));
-          return
+          return event.stopPropagation();
         }else{
           return wrapped(...args);
         }
@@ -38,13 +39,12 @@ class SmartTarget {
       case 2:
         if ((!game.user.isGM && !this.isOwner) || (this.isOwner && game.smartTarget.altModifier)) {
           SmartTarget.handleTargeting(this,game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT));
-          return
+          return event.stopPropagation();
         } else {
           return wrapped(...args);
         }
         break;
     }
-    super._onClickLeft(...args);
   }
 
   static canvasOnClickLeft(wrapped, ...args) {
