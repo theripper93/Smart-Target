@@ -49,7 +49,8 @@ class SmartTarget {
 
   static canvasOnClickLeft(wrapped, ...args) {
     const canvasMousePos = args[0].interactionData.origin
-    if (game.smartTarget.altModifier && !canvas.tokens.hover && game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")){
+    const templateTargetingOption = game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")
+    if (game.smartTarget.altModifier && !canvas.tokens.hover && templateTargetingOption > 0){
       let distance = Infinity
       let closestTemplate = null
       for(let template of canvas.templates.placeables){
@@ -65,9 +66,22 @@ class SmartTarget {
         const release = game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !SmartTarget.settings().release : SmartTarget.settings().release;
         if (release)canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
         for(let token of canvas.tokens.placeables){
-          if(closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y)){
+          const containsToken = (() => {
+            switch (templateTargetingOption){
+              case 2:
+                return closestTemplate.shape.contains(token.shape.x-closestTemplate.x,token.shape.y-closestTemplate.y) ||
+                       closestTemplate.shape.contains((token.shape.x + token.shape.width)-closestTemplate.x,token.shape.y-closestTemplate.y) ||
+                       closestTemplate.shape.contains(token.shape.x-closestTemplate.x,(token.shape.y+token.shape.height)-closestTemplate.y) ||
+                       closestTemplate.shape.contains((token.shape.x + token.shape.width)-closestTemplate.x,(token.shape.y+token.shape.height)-closestTemplate.y);
+              default:
+                return closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y);
+            }
+          })();
+
+          if(containsToken){
             token.setTarget(!token.isTargeted, { releaseOthers: false });
           }
+
         }
       }
     }

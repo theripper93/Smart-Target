@@ -96,6 +96,8 @@
     "smarttarget.settings.pipPosition.random": "Random",
 
     "smarttarget.settings.templateTargeting.name": "Template Targeting",
-    "smarttarget.settings.templateTargeting.hint": "When pressing Alt + Click on a measured template, target all tokens within the template area"
-
+    "smarttarget.settings.templateTargeting.hint": "When pressing Alt + Click on a measured template, target all tokens within the template area. No: Will not target anything. Half: Will target any token at least 50% covered. Any: Will target any token touched by the template.",
+    "smarttarget.settings.templateTargeting.choice0.No": "No",
+    "smarttarget.settings.templateTargeting.choice1.Half": "Half",
+    "smarttarget.settings.templateTargeting.choice2.Any": "Any"
 }

@@ -37,7 +37,12 @@ Hooks.on("init", () => {
     scope: "world",
     config: true,
     default: true,
-    type: Boolean,
+    type: Number,
+    choices: {
+      0: game.i18n.localize("smarttarget.settings.templateTargeting.choice0.No"),
+      1: game.i18n.localize("smarttarget.settings.templateTargeting.choice1.Half"),
+      2: game.i18n.localize("smarttarget.settings.templateTargeting.choice2.Any")
+    }
   });
 
   game.settings.register(SMARTTARGET_MODULE_NAME, "portraitPips", {
