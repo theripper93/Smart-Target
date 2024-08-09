@@ -49,7 +49,8 @@ class SmartTarget {
 
   static canvasOnClickLeft(wrapped, ...args) {
     const canvasMousePos = args[0].interactionData.origin
-    if (game.smartTarget.altModifier && !canvas.tokens.hover && game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")){
+    const templateTargetingOption = game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")
+    if (game.smartTarget.altModifier && !canvas.tokens.hover && templateTargetingOption > 0){
       let distance = Infinity
       let closestTemplate = null
       for(let template of canvas.templates.placeables){
@@ -65,9 +66,64 @@ class SmartTarget {
         const release = game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !SmartTarget.settings().release : SmartTarget.settings().release;
         if (release)canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
         for(let token of canvas.tokens.placeables){
-          if(closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y)){
+          let containsToken = false;
+
+          if (token.shape.type == 1) {
+            containsToken = (() => {
+              const topLeft = {
+                x: (token.center.x-(token.shape.width/2))-closestTemplate.x, 
+                y: (token.center.y-(token.shape.height/2))-closestTemplate.y
+              };
+              const topRight = {
+                x: (token.center.x+(token.shape.width/2))-closestTemplate.x, 
+                y: (token.center.y-(token.shape.height/2))-closestTemplate.y
+              };
+              const bottomLeft = {
+                x: (token.center.x-(token.shape.width/2))-closestTemplate.x, 
+                y: (token.center.y+(token.shape.height/2))-closestTemplate.y
+              };
+              const bottomRight = {
+                x: (token.center.x+(token.shape.width/2))-closestTemplate.x, 
+                y: (token.center.y+(token.shape.height/2))-closestTemplate.y
+              };
+              switch (templateTargetingOption){
+                case 2:
+                  return closestTemplate.shape.contains(topLeft.x, topRight.y) ||
+                        closestTemplate.shape.contains(topRight.x, topRight.y) ||
+                        closestTemplate.shape.contains(bottomRight.x, bottomRight.y) ||
+                        closestTemplate.shape.contains(bottomLeft.x, bottomRight.y);
+                default:
+                  return closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y);
+              }
+            })();
+          }
+          else {
+            containsToken = (() => {
+              const totalPoints = token.shape.points;
+              const bounds = token.bounds;
+              let polygonPoints = [];
+              for (let i = 0; i < totalPoints; i += 2) {
+                    polygonPoints.push({
+                      x: points[i]+token.bounds.x-closestTemplate.x,
+                      y: points[i+1]+token.bounds.y-closestTemplate.y
+                    });
+              }
+
+              for (let polygonPoint of polygonPoints) {
+                if (closestTemplate.shape.contains(polygonPoint.x, polygonPoint.y)) {
+                  containsToken = true;
+                  break;
+                }
+              }
+
+              return containsToken;
+            })();
+          }
+
+          if(containsToken){
             token.setTarget(!token.isTargeted, { releaseOthers: false });
           }
+
         }
       }
     }
