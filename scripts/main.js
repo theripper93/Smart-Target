@@ -218,28 +218,27 @@ Hooks.on("init", () => {
     type: Boolean,
   });
 
-  libWrapper.register(SMARTTARGET_MODULE_NAME,"Token.prototype._refreshTarget", SmartTarget._refreshTarget, "MIXED");
-  libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._onClickLeft", SmartTarget._tokenOnClickLeft, "MIXED");
-  libWrapper.register(SMARTTARGET_MODULE_NAME, "TokenLayer.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
-  libWrapper.register(SMARTTARGET_MODULE_NAME, "Token.prototype._canControl", SmartTarget._canControl, "MIXED");
+  libWrapper.register(SMARTTARGET_MODULE_NAME,"foundry.canvas.placeables.Token.prototype._drawTargetArrows", SmartTarget._drawTargetArrows, "MIXED");
+  libWrapper.register(SMARTTARGET_MODULE_NAME,"foundry.canvas.placeables.Token.prototype._drawTargetPips", SmartTarget._drawTargetPips, "MIXED");
+
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "foundry.canvas.placeables.Token.prototype._onClickLeft", SmartTarget._tokenOnClickLeft, "MIXED");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "foundry.canvas.layers.TokenLayer.prototype._onClickLeft", SmartTarget.canvasOnClickLeft, "WRAPPER");
+  libWrapper.register(SMARTTARGET_MODULE_NAME, "foundry.canvas.placeables.Token.prototype._canControl", SmartTarget._canControl, "MIXED");
   
   Hooks.on("getSceneControlButtons", function(controls) {
 
-    let control = controls.find(c => c.name === 'token') || controls[0];
-
-    control.tools.push({
+    controls.tokens.tools.clearTargets= {
         name: 'clearTargets',
         title: game.i18n.localize("smarttarget.controls.cleartargets.name"),
         icon:'fa fa-times-circle',
         button:true,
-        onClick: () => {
-          canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
+        onChange: () => {
+          game.user.targets.forEach(t => t.setTarget(false, { releaseOthers: true }));
         },
-        layer: 'TokenLayer'
-    });
+    };
   },);
 
-  const {SHIFT, CONTROL, ALT} = KeyboardManager.MODIFIER_KEYS;
+  const {SHIFT, CONTROL, ALT} = foundry.helpers.interaction.KeyboardManager.MODIFIER_KEYS;
   game.keybindings.register(SMARTTARGET_MODULE_NAME, "altKey", {
     name: game.i18n.localize("smarttarget.keybindings.altkey"),
     editable: [

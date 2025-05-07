@@ -1,6 +1,6 @@
 function drawDefault(token, fillColor, p, aw, h, hh, w, hw, ah) {
 
-    token.target.beginFill(fillColor, 1.0)
+    token.targetArrows.beginFill(fillColor, 1.0)
     .lineStyle(1, 0x000000)
     .drawPolygon([-p, hh, -p - aw, hh - ah, -p - aw, hh + ah])
     .drawPolygon([w + p, hh, w + p + aw, hh - ah, w + p + aw, hh + ah])
@@ -22,7 +22,7 @@ let botX = hw - rw / 2;
 let botY = h - rh / 2;
 let leftX = 0 - rh / 2;
 let leftY = hh - rw / 2;
-token.target
+token.targetArrows
     .beginFill(borderColor, 0).lineStyle(10, borderColor).drawCircle(hw, hh, r).endFill()
     .beginFill(fillColor, 0).lineStyle(6, fillColor).drawCircle(hw, hh, r).endFill()
     .beginFill(fillColor).lineStyle(2, borderColor).drawRect(topX, topY, rw, rh).endFill() // top bar
@@ -44,7 +44,7 @@ let botX = hw - rw / 2;
 let botY = h - rh / 2;
 let leftX = 0 - rh / 2;
 let leftY = hh - rw / 2;
-token.target
+token.targetArrows
     .beginFill(borderColor, 1).lineStyle(8, borderColor).drawCircle(hw, hh, 2).endFill()
     .beginFill(fillColor, 1).lineStyle(6, fillColor).drawCircle(hw, hh, 2).endFill()
     .beginFill(fillColor).lineStyle(2, borderColor).drawRect(topX, topY, rw, rh).endFill() // top bar
@@ -55,7 +55,7 @@ token.target
 
 function drawBullsEye1(token, fillColor, p, aw, h, hh, w, hw, ah) {
 let borderColor = 0x000000;
-token.target
+token.targetArrows
     .beginFill(borderColor, 0).lineStyle(6, borderColor).drawCircle(hw, hh, hh).endFill()
     .beginFill(fillColor, 0).lineStyle(4, fillColor).drawCircle(hw, hh, hh).endFill() // stop here for outer ring
     .beginFill(borderColor, 0).lineStyle(6, borderColor).drawCircle(hw, hh, hh - 40).endFill()
@@ -64,7 +64,7 @@ token.target
 
 function drawBullsEye2(token, fillColor, p, aw, h, hh, w, hw, ah) {
 let borderColor = 0x000000;
-token.target
+token.targetArrows
     .beginFill(borderColor, 0).lineStyle(6, borderColor).drawCircle(hw, hh, hh).endFill()
     .beginFill(fillColor, 0).lineStyle(4, fillColor).drawCircle(hw, hh, hh).endFill() // stop here for outer ring
     .beginFill(borderColor, 0).lineStyle(6, borderColor).drawCircle(hw, hh, hh - 20).endFill()
@@ -86,7 +86,7 @@ const hmid = token.w / 2;
 const crossLen = (size / 2) - (padding * 1.5);
 // TODO: Remove this when core PIXI.js graphics-smooth version >= v0.0.17
 const smoothGraphicsHack = 0.999;
-token.target
+token.targetArrows
     .beginFill(0x000000, 0.0).lineStyle(stroke + 2, 0x000000)
     .drawCircle(hmid, vmid, (size / 2) - padding - (stroke / 2))
     .endFill()

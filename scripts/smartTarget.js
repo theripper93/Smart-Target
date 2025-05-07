@@ -1,22 +1,24 @@
 class SmartTarget {
-
-  static handleTargeting(token,shift) {
+  static handleTargeting(token, shift) {
     const isTargeted = token.isTargeted;
-    const release = shift ? !SmartTarget.settings().release : SmartTarget.settings().release;
+    const release = shift
+      ? !SmartTarget.settings().release
+      : SmartTarget.settings().release;
     token.setTarget(!isTargeted, { releaseOthers: release });
   }
 
-  static getBorderColor({hover}={}) {
+  static getBorderColor({ hover } = {}) {
     const colors = CONFIG.Canvas.dispositionColors;
-    if ( this.controlled ) return colors.CONTROLLED;
-    else if ( (hover ?? this.hover) || canvas.tokens._highlight ) {
+    if (this.controlled) return colors.CONTROLLED;
+    else if ((hover ?? this.hover) || canvas.tokens._highlight) {
       let d = this.document.disposition;
-      if ( !game.user.isGM && this.isOwner ) return colors.CONTROLLED;
-      else if ( this.actor?.hasPlayerOwner ) return colors.PARTY;
-      else if ( d === CONST.TOKEN_DISPOSITIONS.FRIENDLY ) return colors.FRIENDLY;
-      else if ( d === CONST.TOKEN_DISPOSITIONS.NEUTRAL ) return colors.NEUTRAL;
-      else if ( d === CONST.TOKEN_DISPOSITIONS.HOSTILE ) return colors.HOSTILE;
-      else if ( d === CONST.TOKEN_DISPOSITIONS.SECRET ) return this.isOwner ? colors.SECRET : null;
+      if (!game.user.isGM && this.isOwner) return colors.CONTROLLED;
+      else if (this.actor?.hasPlayerOwner) return colors.PARTY;
+      else if (d === CONST.TOKEN_DISPOSITIONS.FRIENDLY) return colors.FRIENDLY;
+      else if (d === CONST.TOKEN_DISPOSITIONS.NEUTRAL) return colors.NEUTRAL;
+      else if (d === CONST.TOKEN_DISPOSITIONS.HOSTILE) return colors.HOSTILE;
+      else if (d === CONST.TOKEN_DISPOSITIONS.SECRET)
+        return this.isOwner ? colors.SECRET : null;
     }
     return null;
   }
@@ -30,15 +32,24 @@ class SmartTarget {
         break;
       case 1:
         if (game.smartTarget.altModifier) {
-          SmartTarget.handleTargeting(this,game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT));
+          SmartTarget.handleTargeting(
+            this,
+            game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT)
+          );
           return event.stopPropagation();
-        }else{
+        } else {
           return wrapped(...args);
         }
         break;
       case 2:
-        if ((!game.user.isGM && !this.isOwner) || (this.isOwner && game.smartTarget.altModifier)) {
-          SmartTarget.handleTargeting(this,game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT));
+        if (
+          (!game.user.isGM && !this.isOwner) ||
+          (this.isOwner && game.smartTarget.altModifier)
+        ) {
+          SmartTarget.handleTargeting(
+            this,
+            game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT)
+          );
           return event.stopPropagation();
         } else {
           return wrapped(...args);
@@ -48,24 +59,46 @@ class SmartTarget {
   }
 
   static canvasOnClickLeft(wrapped, ...args) {
-    const canvasMousePos = args[0].interactionData.origin
-    if (game.smartTarget.altModifier && !canvas.tokens.hover && game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")){
-      let distance = Infinity
-      let closestTemplate = null
-      for(let template of canvas.templates.placeables){
-        if(!template.owner) continue
-        const inTemplate = template.shape.contains(canvasMousePos.x-template.x,canvasMousePos.y-template.y)
-        const d = Math.sqrt(Math.pow(template.x-canvasMousePos.x,2)+Math.pow(template.y-canvasMousePos.y,2))
-        if(inTemplate && d<distance){
-          distance = d
-          closestTemplate = template
+    const canvasMousePos = args[0].interactionData.origin;
+    if (
+      game.smartTarget.altModifier &&
+      !canvas.tokens.hover &&
+      game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")
+    ) {
+      let distance = Infinity;
+      let closestTemplate = null;
+      for (let template of canvas.templates.placeables) {
+        if (!template.owner) continue;
+        const inTemplate = template.shape.contains(
+          canvasMousePos.x - template.x,
+          canvasMousePos.y - template.y
+        );
+        const d = Math.sqrt(
+          Math.pow(template.x - canvasMousePos.x, 2) +
+            Math.pow(template.y - canvasMousePos.y, 2)
+        );
+        if (inTemplate && d < distance) {
+          distance = d;
+          closestTemplate = template;
         }
       }
-      if(closestTemplate){
-        const release = game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.SHIFT) ? !SmartTarget.settings().release : SmartTarget.settings().release;
-        if (release)canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });
-        for(let token of canvas.tokens.placeables){
-          if(closestTemplate.shape.contains(token.center.x-closestTemplate.x,token.center.y-closestTemplate.y)){
+      if (closestTemplate) {
+        const release = game.keyboard.isModifierActive(
+          KeyboardManager.MODIFIER_KEYS.SHIFT
+        )
+          ? !SmartTarget.settings().release
+          : SmartTarget.settings().release;
+        if (release)
+          canvas.tokens.placeables[0]?.setTarget(false, {
+            releaseOthers: true,
+          });
+        for (let token of canvas.tokens.placeables) {
+          if (
+            closestTemplate.shape.contains(
+              token.center.x - closestTemplate.x,
+              token.center.y - closestTemplate.y
+            )
+          ) {
             token.setTarget(!token.isTargeted, { releaseOthers: false });
           }
         }
@@ -74,23 +107,27 @@ class SmartTarget {
     return wrapped(...args);
   }
 
-  static _canControl(wrapped,...args){
-    if(!args[1]) return wrapped(...args);
+  static _canControl(wrapped, ...args) {
+    if (!args[1]) return wrapped(...args);
     const mode = SmartTarget.settings().mode;
-    if(mode==1 && game.smartTarget.altModifier) return true;
-    if(mode==2 && !game.user.isGM && !this.isOwner) return true;
+    if (mode == 1 && game.smartTarget.altModifier) return true;
+    if (mode == 2 && !game.user.isGM && !this.isOwner) return true;
     return wrapped(...args);
   }
 
   static getOffset(token, length) {
     const width = token.w;
     const height = token.h;
-    const position = game.settings.get(SMARTTARGET_MODULE_NAME, "pipPosition")
-    const circleR = game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
-    let circleOffsetMult = game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
-    let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, "insidePips") ? circleR : 0;
-    const totalHeight = circleR*2;
-    const totalWidth = (circleR*2)*length - circleOffsetMult*(length-1);
+    const position = game.settings.get(SMARTTARGET_MODULE_NAME, "pipPosition");
+    const circleR =
+      game.settings.get(SMARTTARGET_MODULE_NAME, "pipScale") || 12;
+    let circleOffsetMult =
+      game.settings.get(SMARTTARGET_MODULE_NAME, "pipOffset") || 16;
+    let insidePip = game.settings.get(SMARTTARGET_MODULE_NAME, "insidePips")
+      ? circleR
+      : 0;
+    const totalHeight = circleR * 2;
+    const totalWidth = circleR * 2 * length - circleOffsetMult * (length - 1);
     const offset = {
       x: 0,
       y: 0,
@@ -146,16 +183,22 @@ class SmartTarget {
       }
       if (character) {
         pTex = game.settings.get(SMARTTARGET_MODULE_NAME, "useToken")
-        ? character.prototypeToken.texture.src || character.img
-        : character.img || character.prototypeToken.texture.src;
+          ? character.prototypeToken.texture.src || character.img
+          : character.img || character.prototypeToken.texture.src;
       } else {
         pTex = u.avatar;
       }
     }
-    const gmTexSetting = game.settings.get(SMARTTARGET_MODULE_NAME, "useTokenGm")
-    let gmTexture = gmTexSetting ? token.document.getFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg") || u.avatar : u.avatar
-    function redraw(){
-      token._refreshTarget()
+    const gmTexSetting = game.settings.get(
+      SMARTTARGET_MODULE_NAME,
+      "useTokenGm"
+    );
+    let gmTexture = gmTexSetting
+      ? token.document.getFlag(SMARTTARGET_MODULE_NAME, "gmtargetimg") ||
+        u.avatar
+      : u.avatar;
+    function redraw() {
+      token._refreshTarget();
     }
     let texture = u.isGM
       ? PIXI.Texture.from(gmTexture)
@@ -175,108 +218,115 @@ class SmartTarget {
       0,
       0,
       (scaleMulti * (2 * circleR + 2)) / texture.height,
-      newTexW / 2 + 4 + i * circleOffsetMult + portraitXoffset + insidePip + totalOffset.x,
+      newTexW / 2 +
+        4 +
+        i * circleOffsetMult +
+        portraitXoffset +
+        insidePip +
+        totalOffset.x,
       newTexH / 2 + portraitCenterOffset + insidePip + totalOffset.y
     );
     token.target
       .beginFill(color)
-      .drawCircle(2 + i * circleOffsetMult + insidePip + totalOffset.x, 0 + insidePip + totalOffset.y, circleR)
+      .drawCircle(
+        2 + i * circleOffsetMult + insidePip + totalOffset.x,
+        0 + insidePip + totalOffset.y,
+        circleR
+      )
       .beginTextureFill({
         texture: texture,
         alpha: 1,
         matrix: matrix,
       })
       .lineStyle(borderThic, 0x0000000)
-      .drawCircle(2 + i * circleOffsetMult + insidePip + totalOffset.x, 0 + insidePip + totalOffset.y, circleR)
+      .drawCircle(
+        2 + i * circleOffsetMult + insidePip + totalOffset.x,
+        0 + insidePip + totalOffset.y,
+        circleR
+      )
       .endFill()
       .lineStyle(borderThic / 2, color)
-      .drawCircle(2 + i * circleOffsetMult + insidePip + totalOffset.x, 0 + insidePip + totalOffset.y, circleR)
+      .drawCircle(
+        2 + i * circleOffsetMult + insidePip + totalOffset.x,
+        0 + insidePip + totalOffset.y,
+        circleR
+      );
   }
 
-  // Draw custom crosshair and pips
-  static async _refreshTarget(wrapped, ...args) {
+  static _drawTargetPips(wrapped, ...args) {
     const usePips = game.settings.get(SMARTTARGET_MODULE_NAME, "portraitPips");
-    const selectedIndicator = game.settings.get(SMARTTARGET_MODULE_NAME, "target-indicator");
+    if (!usePips) return wrapped(...args);
 
-    if(!usePips && selectedIndicator == "0") return wrapped(...args);
-    
-    if (!this.target) return;
-    let reticule = args[0] ?? {};
-    this.target.clear();
-
-    // We don't show the target arrows for a secret token disposition and non-GM users
-    const isSecret = this.document.disposition === CONST.TOKEN_DISPOSITIONS.SECRET && !this.isOwner;
-    if (!this.targeted.size || isSecret) return;
-
-    // Determine whether the current user has target and any other users
+    if (!this.targeted.size) return;
+    this.targetPips.clear();
     const [others, user] = Array.from(this.targeted).partition(
       (u) => u === game.user
     );
-    const userTarget = user.length;
 
-    // For the current user, draw the target arrows
-    if (userTarget) {
-      let textColor = game.settings.get(
-        SMARTTARGET_MODULE_NAME,
-        "crossairColor"
-      )
-        ? game.settings
-            .get(SMARTTARGET_MODULE_NAME, "crossairColor")
-            .replace("#", "0x")
-        : SmartTarget.getBorderColor.bind(this)({hover: true});
+    for (let [i, u] of others.entries()) {
+      const offset = SmartTarget.getOffset(this, others.length);
+      SmartTarget.buildCharacterPortrait(u, i, this.targetPips, this, offset);
+    }
+  }
 
-      if (game.settings.get(SMARTTARGET_MODULE_NAME, "use-player-color")) {
-        textColor = Color.from(game.user["color"]);
-      }
+  static _drawTargetArrows(wrapped, ...args) {
+    const selectedIndicator = game.settings.get(
+      SMARTTARGET_MODULE_NAME,
+      "target-indicator"
+    );
+    if (selectedIndicator == "0") return wrapped(...args);
+    this.targetArrows.clear();
+    const isSecret =
+      this.document.disposition === CONST.TOKEN_DISPOSITIONS.SECRET &&
+      !this.isOwner;
+    if (!this.targeted.size || !this.targeted.has(game.user) || isSecret)
+      return;
+    const reticule = args[0] ?? {};
 
-      let p = 4;
-      let aw = 12;
-      let h = this.h;
-      let hh = h / 2;
-      let w = this.w;
-      let hw = w / 2;
-      let ah = canvas.dimensions.size / 3;
+    let crossairColor = game.settings.get(
+      SMARTTARGET_MODULE_NAME,
+      "crossairColor"
+    )
+      ? game.settings
+          .get(SMARTTARGET_MODULE_NAME, "crossairColor")
+          .replace("#", "0x")
+      : SmartTarget.getBorderColor.bind(this)({ hover: true });
 
-      switch (selectedIndicator) {
-        case "0":
-          reticule.color = textColor;
-          this._drawTarget(reticule)//{color: textColor})//drawDefault(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-        case "1":
-          drawCrossHairs1(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-        case "2":
-          drawCrossHairs2(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-        case "3":
-          drawBullsEye1(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-        case "4":
-          drawBullsEye2(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-        case "5":
-          drawBetterTarget(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-        default:
-          drawDefault(this, textColor, p, aw, h, hh, w, hw, ah);
-          break;
-      }
+    if (game.settings.get(SMARTTARGET_MODULE_NAME, "use-player-color")) {
+      crossairColor = Color.from(game.user["color"]);
     }
 
-    // For other users, draw offset pips
-    if (usePips) {
-      for (let [i, u] of others.entries()) {
-        const offset = SmartTarget.getOffset(this, others.length);
-        SmartTarget.buildCharacterPortrait(u, i, this.target,this, offset);
-      }
-    } else {
-        const hw2 = this.w / 2 + (others.length % 2 === 0 ? 8 : 0);
-        for (let [i, u] of others.entries()) {
-            const offset = Math.floor((i + 1) / 2) * 16;
-            const sign = i % 2 === 0 ? 1 : -1;
-            const x = hw2 + sign * offset;
-            this.target.beginFill(Color.from(u.color), 1.0).lineStyle(2, 0x0000000).drawCircle(x, 0, 6);
-        }
+    let p = 4;
+    let aw = 12;
+    let h = this.h;
+    let hh = h / 2;
+    let w = this.w;
+    let hw = w / 2;
+    let ah = canvas.dimensions.size / 3;
+
+    switch (selectedIndicator) {
+      case "0":
+        reticule.color = crossairColor;
+        return wrapped(...args);
+        break;
+      case "1":
+        drawCrossHairs1(this, crossairColor, p, aw, h, hh, w, hw, ah);
+        break;
+      case "2":
+        drawCrossHairs2(this, crossairColor, p, aw, h, hh, w, hw, ah);
+        break;
+      case "3":
+        drawBullsEye1(this, crossairColor, p, aw, h, hh, w, hw, ah);
+        break;
+      case "4":
+        drawBullsEye2(this, crossairColor, p, aw, h, hh, w, hw, ah);
+        break;
+      case "5":
+        drawBetterTarget(this, crossairColor, p, aw, h, hh, w, hw, ah);
+        break;
+      default:
+        drawDefault(this, crossairColor, p, aw, h, hh, w, hw, ah);
+        break;
     }
   }
 
@@ -289,19 +339,22 @@ class SmartTarget {
   }
 }
 
-Hooks.on("targetToken", (user,token,targeted) =>{
-  const gmTexSetting = game.settings.get(SMARTTARGET_MODULE_NAME, "useTokenGm")
-  if(!game.user.isGM || !targeted || !gmTexSetting) return
+Hooks.on("targetToken", (user, token, targeted) => {
+  const gmTexSetting = game.settings.get(SMARTTARGET_MODULE_NAME, "useTokenGm");
+  if (!game.user.isGM || !targeted || !gmTexSetting) return;
 
-  let flag
-      if(gmTexSetting == 1) flag = _token?.document.actor?.img || _token?.document.texture.src
-      if(gmTexSetting == 2) flag = _token?.document.texture.src || _token?.document.actor?.img 
-      flag && flag != token.document.getFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg") && token.document.setFlag(SMARTTARGET_MODULE_NAME,"gmtargetimg",flag)
-
-})
+  let flag;
+  if (gmTexSetting == 1)
+    flag = _token?.document.actor?.img || _token?.document.texture.src;
+  if (gmTexSetting == 2)
+    flag = _token?.document.texture.src || _token?.document.actor?.img;
+  flag &&
+    flag != token.document.getFlag(SMARTTARGET_MODULE_NAME, "gmtargetimg") &&
+    token.document.setFlag(SMARTTARGET_MODULE_NAME, "gmtargetimg", flag);
+});
 
 Hooks.on("updateToken", (token, update) => {
   if (update?.flags?.[SMARTTARGET_MODULE_NAME]?.gmtargetimg) {
-    token.object._refreshTarget()
+    token.object._refreshTarget();
   }
 });
