@@ -254,7 +254,7 @@ game.keybindings.register(SMARTTARGET_MODULE_NAME, "clearAllTargets", {
   editable: [
     {key: "KeyC", modifiers: [ ALT ]}
   ],
-  onDown: () => {canvas.tokens.placeables[0]?.setTarget(false, { releaseOthers: true });},
+  onDown: () => {game.user.targets.forEach(t => t.setTarget(false, { releaseOthers: true }));},
 });
 
 
