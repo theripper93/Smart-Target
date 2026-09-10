@@ -66,42 +66,37 @@ class SmartTarget {
       game.settings.get(SMARTTARGET_MODULE_NAME, "templateTargeting")
     ) {
       let distance = Infinity;
-      let closestTemplate = null;
-      for (let template of canvas.templates.placeables) {
-        if (!template.owner) continue;
-        const inTemplate = template.shape.contains(
-          canvasMousePos.x - template.x,
-          canvasMousePos.y - template.y
-        );
+      let closestRegion = null;
+      for (let region of canvas.regions.placeables) {
+        const regionDoc = region.document;
+        if (!regionDoc.isOwner) continue;
+        const inRegion = regionDoc.testPoint({
+          ...canvasMousePos,
+          elevation: regionDoc.elevation?.bottom ?? 0
+        });
         const d = Math.sqrt(
-          Math.pow(template.x - canvasMousePos.x, 2) +
-            Math.pow(template.y - canvasMousePos.y, 2)
+          Math.pow(regionDoc.bounds.center.x - canvasMousePos.x, 2) +
+          Math.pow(regionDoc.bounds.center.y - canvasMousePos.y, 2)
         );
-        if (inTemplate && d < distance) {
+        if (inRegion && d < distance) {
           distance = d;
-          closestTemplate = template;
+          closestRegion = regionDoc;
         }
       }
-      if (closestTemplate) {
+      if (closestRegion) {
         const release = game.keyboard.isModifierActive(
           KeyboardManager.MODIFIER_KEYS.SHIFT
-        )
-          ? !SmartTarget.settings().release
-          : SmartTarget.settings().release;
-        if (release)
+        ) ? !SmartTarget.settings().release : SmartTarget.settings().release;
+
+        if (release) {
           canvas.tokens.placeables[0]?.setTarget(false, {
             releaseOthers: true,
           });
-        for (let token of canvas.tokens.placeables) {
-          if (
-            closestTemplate.shape.contains(
-              token.center.x - closestTemplate.x,
-              token.center.y - closestTemplate.y
-            )
-          ) {
-            token.setTarget(!token.isTargeted, { releaseOthers: false });
-          }
         }
+        
+        closestRegion.tokens.forEach(token => {
+          token.object?.setTarget(!token.object?.isTargeted, { releaseOthers: false });
+        });
       }
     }
     return wrapped(...args);
