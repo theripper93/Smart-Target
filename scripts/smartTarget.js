@@ -24,6 +24,7 @@ class SmartTarget {
   }
 
   static _tokenOnClickLeft(wrapped, ...args) {
+    if (canvas.regions._placementContext) return wrapped(...args);
     const mode = SmartTarget.settings().mode;
     const event = args[0];
     switch (mode) {
@@ -59,6 +60,7 @@ class SmartTarget {
   }
 
   static canvasOnClickLeft(wrapped, ...args) {
+    if (canvas.regions._placementContext) return wrapped(...args);
     const canvasMousePos = args[0].interactionData.origin;
     if (
       game.smartTarget.altModifier &&
@@ -103,6 +105,7 @@ class SmartTarget {
   }
 
   static _canControl(wrapped, ...args) {
+    if (canvas.regions._placementContext) return wrapped(...args);
     if (!args[1]) return wrapped(...args);
     const mode = SmartTarget.settings().mode;
     if (mode == 1 && game.smartTarget.altModifier) return true;
